@@ -7,8 +7,8 @@ Rebuild of [coursermeadows.com](https://www.coursermeadows.com) (WordPress/WooCo
 | | |
 |---|---|
 | Done | Astro scaffold · crawl + [content map](docs/content-map.md) · [content model](docs/content-model.md) · open/closed logic + status bar · Markdown export of all old pages · redirects for every old URL |
-| Waiting on a decision | Visual design direction ([prototypes](prototypes/)) · confirm Storyblok + Netlify ([ADR 2](docs/adr/0002-astro-storyblok-netlify.md)) |
-| Waiting on the farm | Current hours, current prices, which animals are current ([questions](docs/content-map.md#questions-for-the-farm)) |
+| Decided | Astro + Storyblok + Netlify ([ADR 2](docs/adr/0002-astro-storyblok-netlify.md)) |
+| Waiting on the farm | Pick a design from the [three looks](prototypes/three-looks/) · answer the [questions for the farm](docs/questions-for-the-farm.md) |
 | Next | Connect Storyblok · build pages in the chosen design · import guides · write alt text · editor guide · Lighthouse pass |
 
 ## Commands

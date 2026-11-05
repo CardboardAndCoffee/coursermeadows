@@ -2,12 +2,16 @@
 
 Visual reference only. Not production code.
 
-**Missing:** the two prototype files from the original claude.ai chat haven't been added yet:
+## `three-looks/`: current options (Nov 2026)
 
-- `homepage-prototype.html`: earlier homepage concept (pasture green + egg-yolk amber, Fraunces + Hanken Grotesk, ear-tag section markers, "Show editable areas" toggle)
-- `three-directions.html`: switchable design directions
-  - **A – Almanac:** aged paper, Zilla Slab, barn red, drop caps, "Prices Current" table styling
-  - **B – Creamery:** milk-white, butter yellow, Schibsted Grotesk, pill shapes, modern dairy
-  - **C – Dusk:** forest-charcoal, warm gold, Newsreader serif, asymmetric editorial grid, photo-forward
+Three fresh design directions for the farm to choose between. Open `three-looks/index.html` in a browser.
 
-Drop them in this folder as-is. The visual build waits on choosing one direction.
+1. **Farm Stand** puts the store first: a driveway-sign look, hours and the price board up front.
+2. **Herd Book** puts the animals first: the herd by name, with breed, height, and testing details shown like a registration card, plus what's for sale.
+3. **Field Guide** puts the writing first: big photos and a reading layout built around the Idaho Pasture Pig guide.
+
+Photos are from the current coursermeadows.com, resized.
+
+## Earlier directions (set aside)
+
+The original chat produced A Almanac, B Creamery, C Dusk, and a pasture-green homepage concept. Those files were never added to the repo, and the owner chose to start fresh instead.

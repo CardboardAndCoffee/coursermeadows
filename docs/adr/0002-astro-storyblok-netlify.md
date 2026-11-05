@@ -1,6 +1,8 @@
 # 2. Astro + Storyblok + Netlify
 
-**Status:** Proposed. Astro is in use; Storyblok and Netlify are the working assumption until the farm/owner confirms. The visual design direction (A Almanac / B Creamery / C Dusk / the earlier homepage prototype) is **not chosen**; see `prototypes/`.
+**Status:** Accepted 2026-11-05 (Astro, Storyblok, Netlify confirmed by the owner).
+
+The visual design is a separate decision. The original A/B/C directions were set aside, and three fresh options (Farm Stand, Herd Book, Field Guide) are with the farm for review; see `prototypes/three-looks/`.
 
 ## Site generator: Astro
 
