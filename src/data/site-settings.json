@@ -1,0 +1,13 @@
+{
+  "farmName": "Courser Meadows",
+  "phone": "603-456-2164",
+  "email": "coursermeadows@gmail.com",
+  "address": { "street": "163 Connors Mill Road", "town": "Warner", "state": "NH", "zip": "03278" },
+  "facebookUrl": "https://www.facebook.com/coursermeadows",
+  "timeZone": "America/New_York",
+  "hours": [
+    { "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"], "opens": "09:00", "closes": "19:00" }
+  ],
+  "closures": [],
+  "statusOverride": "auto"
+}

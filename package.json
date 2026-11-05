@@ -1,0 +1,23 @@
+{
+  "name": "coursermeadows",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "vitest run",
+    "migrate:wp": "node migration/wp-to-markdown.mjs",
+    "redirects": "node migration/build-redirects.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.4.2",
+    "turndown": "^7.2.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.12"
+  }
+}

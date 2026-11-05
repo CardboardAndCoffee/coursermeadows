@@ -1,0 +1,1203 @@
+{
+  "components": [
+    {
+      "name": "site_settings",
+      "display_name": "Farm info & hours",
+      "is_root": true,
+      "is_nestable": false,
+      "schema": {
+        "tab_status": {
+          "type": "tab",
+          "display_name": "Open / closed",
+          "keys": [
+            "status_override",
+            "override_message",
+            "override_until"
+          ]
+        },
+        "status_override": {
+          "type": "option",
+          "display_name": "Store status",
+          "pos": 0,
+          "required": true,
+          "default_value": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "name": "Follow the regular hours"
+            },
+            {
+              "value": "open",
+              "name": "Show OPEN (override)"
+            },
+            {
+              "value": "closed",
+              "name": "Show CLOSED (override)"
+            }
+          ],
+          "description": "Leave on \"Follow the regular hours\" unless something unusual is happening."
+        },
+        "override_message": {
+          "type": "text",
+          "display_name": "Message while overridden",
+          "pos": 1,
+          "max_length": 80,
+          "description": "Shown in the status bar, e.g. \"Closed today — snowed in\"."
+        },
+        "override_until": {
+          "type": "datetime",
+          "display_name": "Override ends",
+          "pos": 2,
+          "description": "Optional. After this, the status goes back to the regular hours by itself."
+        },
+        "tab_hours": {
+          "type": "tab",
+          "display_name": "Hours",
+          "keys": [
+            "hours",
+            "hours_note",
+            "closures"
+          ]
+        },
+        "hours": {
+          "type": "bloks",
+          "display_name": "Regular weekly hours",
+          "pos": 3,
+          "restrict_components": true,
+          "component_whitelist": [
+            "hours_row"
+          ],
+          "minimum": 1
+        },
+        "hours_note": {
+          "type": "text",
+          "display_name": "Note under the hours",
+          "pos": 4,
+          "max_length": 120
+        },
+        "closures": {
+          "type": "bloks",
+          "display_name": "Holiday closures",
+          "pos": 5,
+          "restrict_components": true,
+          "component_whitelist": [
+            "closure"
+          ]
+        },
+        "tab_contact": {
+          "type": "tab",
+          "display_name": "Contact",
+          "keys": [
+            "farm_name",
+            "phone",
+            "email",
+            "street",
+            "town",
+            "state",
+            "zip",
+            "map_url",
+            "facebook_url"
+          ]
+        },
+        "farm_name": {
+          "type": "text",
+          "display_name": "Farm name",
+          "pos": 6,
+          "required": true
+        },
+        "phone": {
+          "type": "text",
+          "display_name": "Phone",
+          "pos": 7,
+          "required": true
+        },
+        "email": {
+          "type": "text",
+          "display_name": "Email",
+          "pos": 8,
+          "required": true
+        },
+        "street": {
+          "type": "text",
+          "display_name": "Street address",
+          "pos": 9,
+          "required": true
+        },
+        "town": {
+          "type": "text",
+          "display_name": "Town",
+          "pos": 10,
+          "required": true
+        },
+        "state": {
+          "type": "text",
+          "display_name": "State",
+          "pos": 11,
+          "required": true
+        },
+        "zip": {
+          "type": "text",
+          "display_name": "ZIP",
+          "pos": 12,
+          "required": true
+        },
+        "map_url": {
+          "type": "text",
+          "display_name": "Google Maps link",
+          "pos": 13
+        },
+        "facebook_url": {
+          "type": "text",
+          "display_name": "Facebook page",
+          "pos": 14
+        }
+      }
+    },
+    {
+      "name": "hours_row",
+      "display_name": "Hours",
+      "is_root": false,
+      "is_nestable": true,
+      "preview_field": "opens",
+      "schema": {
+        "days": {
+          "type": "options",
+          "display_name": "Days",
+          "pos": 0,
+          "required": true,
+          "options": [
+            {
+              "value": "mon",
+              "name": "Monday"
+            },
+            {
+              "value": "tue",
+              "name": "Tuesday"
+            },
+            {
+              "value": "wed",
+              "name": "Wednesday"
+            },
+            {
+              "value": "thu",
+              "name": "Thursday"
+            },
+            {
+              "value": "fri",
+              "name": "Friday"
+            },
+            {
+              "value": "sat",
+              "name": "Saturday"
+            },
+            {
+              "value": "sun",
+              "name": "Sunday"
+            }
+          ]
+        },
+        "opens": {
+          "type": "option",
+          "display_name": "Opens",
+          "pos": 1,
+          "required": true,
+          "options": [
+            {
+              "value": "05:00",
+              "name": "5 am"
+            },
+            {
+              "value": "05:30",
+              "name": "5:30 am"
+            },
+            {
+              "value": "06:00",
+              "name": "6 am"
+            },
+            {
+              "value": "06:30",
+              "name": "6:30 am"
+            },
+            {
+              "value": "07:00",
+              "name": "7 am"
+            },
+            {
+              "value": "07:30",
+              "name": "7:30 am"
+            },
+            {
+              "value": "08:00",
+              "name": "8 am"
+            },
+            {
+              "value": "08:30",
+              "name": "8:30 am"
+            },
+            {
+              "value": "09:00",
+              "name": "9 am"
+            },
+            {
+              "value": "09:30",
+              "name": "9:30 am"
+            },
+            {
+              "value": "10:00",
+              "name": "10 am"
+            },
+            {
+              "value": "10:30",
+              "name": "10:30 am"
+            },
+            {
+              "value": "11:00",
+              "name": "11 am"
+            },
+            {
+              "value": "11:30",
+              "name": "11:30 am"
+            },
+            {
+              "value": "12:00",
+              "name": "12 pm"
+            },
+            {
+              "value": "12:30",
+              "name": "12:30 pm"
+            },
+            {
+              "value": "13:00",
+              "name": "1 pm"
+            },
+            {
+              "value": "13:30",
+              "name": "1:30 pm"
+            },
+            {
+              "value": "14:00",
+              "name": "2 pm"
+            },
+            {
+              "value": "14:30",
+              "name": "2:30 pm"
+            },
+            {
+              "value": "15:00",
+              "name": "3 pm"
+            },
+            {
+              "value": "15:30",
+              "name": "3:30 pm"
+            },
+            {
+              "value": "16:00",
+              "name": "4 pm"
+            },
+            {
+              "value": "16:30",
+              "name": "4:30 pm"
+            },
+            {
+              "value": "17:00",
+              "name": "5 pm"
+            },
+            {
+              "value": "17:30",
+              "name": "5:30 pm"
+            },
+            {
+              "value": "18:00",
+              "name": "6 pm"
+            },
+            {
+              "value": "18:30",
+              "name": "6:30 pm"
+            },
+            {
+              "value": "19:00",
+              "name": "7 pm"
+            },
+            {
+              "value": "19:30",
+              "name": "7:30 pm"
+            },
+            {
+              "value": "20:00",
+              "name": "8 pm"
+            },
+            {
+              "value": "20:30",
+              "name": "8:30 pm"
+            },
+            {
+              "value": "21:00",
+              "name": "9 pm"
+            },
+            {
+              "value": "21:30",
+              "name": "9:30 pm"
+            },
+            {
+              "value": "22:00",
+              "name": "10 pm"
+            }
+          ]
+        },
+        "closes": {
+          "type": "option",
+          "display_name": "Closes",
+          "pos": 2,
+          "required": true,
+          "options": [
+            {
+              "value": "05:00",
+              "name": "5 am"
+            },
+            {
+              "value": "05:30",
+              "name": "5:30 am"
+            },
+            {
+              "value": "06:00",
+              "name": "6 am"
+            },
+            {
+              "value": "06:30",
+              "name": "6:30 am"
+            },
+            {
+              "value": "07:00",
+              "name": "7 am"
+            },
+            {
+              "value": "07:30",
+              "name": "7:30 am"
+            },
+            {
+              "value": "08:00",
+              "name": "8 am"
+            },
+            {
+              "value": "08:30",
+              "name": "8:30 am"
+            },
+            {
+              "value": "09:00",
+              "name": "9 am"
+            },
+            {
+              "value": "09:30",
+              "name": "9:30 am"
+            },
+            {
+              "value": "10:00",
+              "name": "10 am"
+            },
+            {
+              "value": "10:30",
+              "name": "10:30 am"
+            },
+            {
+              "value": "11:00",
+              "name": "11 am"
+            },
+            {
+              "value": "11:30",
+              "name": "11:30 am"
+            },
+            {
+              "value": "12:00",
+              "name": "12 pm"
+            },
+            {
+              "value": "12:30",
+              "name": "12:30 pm"
+            },
+            {
+              "value": "13:00",
+              "name": "1 pm"
+            },
+            {
+              "value": "13:30",
+              "name": "1:30 pm"
+            },
+            {
+              "value": "14:00",
+              "name": "2 pm"
+            },
+            {
+              "value": "14:30",
+              "name": "2:30 pm"
+            },
+            {
+              "value": "15:00",
+              "name": "3 pm"
+            },
+            {
+              "value": "15:30",
+              "name": "3:30 pm"
+            },
+            {
+              "value": "16:00",
+              "name": "4 pm"
+            },
+            {
+              "value": "16:30",
+              "name": "4:30 pm"
+            },
+            {
+              "value": "17:00",
+              "name": "5 pm"
+            },
+            {
+              "value": "17:30",
+              "name": "5:30 pm"
+            },
+            {
+              "value": "18:00",
+              "name": "6 pm"
+            },
+            {
+              "value": "18:30",
+              "name": "6:30 pm"
+            },
+            {
+              "value": "19:00",
+              "name": "7 pm"
+            },
+            {
+              "value": "19:30",
+              "name": "7:30 pm"
+            },
+            {
+              "value": "20:00",
+              "name": "8 pm"
+            },
+            {
+              "value": "20:30",
+              "name": "8:30 pm"
+            },
+            {
+              "value": "21:00",
+              "name": "9 pm"
+            },
+            {
+              "value": "21:30",
+              "name": "9:30 pm"
+            },
+            {
+              "value": "22:00",
+              "name": "10 pm"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "closure",
+      "display_name": "Closure",
+      "is_root": false,
+      "is_nestable": true,
+      "preview_field": "label",
+      "schema": {
+        "label": {
+          "type": "text",
+          "display_name": "Message",
+          "pos": 0,
+          "required": true,
+          "description": "e.g. \"Closed for Thanksgiving\""
+        },
+        "from": {
+          "type": "datetime",
+          "display_name": "First day closed",
+          "pos": 1,
+          "required": true,
+          "disable_time": true
+        },
+        "to": {
+          "type": "datetime",
+          "display_name": "Last day closed",
+          "pos": 2,
+          "required": true,
+          "disable_time": true
+        }
+      }
+    },
+    {
+      "name": "product",
+      "display_name": "Product",
+      "is_root": true,
+      "is_nestable": false,
+      "preview_field": "name",
+      "schema": {
+        "name": {
+          "type": "text",
+          "display_name": "Name",
+          "pos": 0,
+          "required": true,
+          "description": "e.g. \"Ground beef\""
+        },
+        "category": {
+          "type": "option",
+          "display_name": "Category",
+          "pos": 1,
+          "required": true,
+          "options": [
+            {
+              "value": "dairy",
+              "name": "Dairy"
+            },
+            {
+              "value": "eggs",
+              "name": "Eggs"
+            },
+            {
+              "value": "beef",
+              "name": "Beef"
+            },
+            {
+              "value": "pork",
+              "name": "Pork"
+            },
+            {
+              "value": "lamb",
+              "name": "Lamb"
+            },
+            {
+              "value": "poultry",
+              "name": "Poultry"
+            },
+            {
+              "value": "maple",
+              "name": "Maple syrup"
+            },
+            {
+              "value": "piglets",
+              "name": "Piglets"
+            },
+            {
+              "value": "shares",
+              "name": "Bulk shares"
+            }
+          ]
+        },
+        "price": {
+          "type": "number",
+          "display_name": "Price ($)",
+          "pos": 2,
+          "description": "Leave empty for \"call for price\".",
+          "decimals": 2
+        },
+        "unit": {
+          "type": "text",
+          "display_name": "Per",
+          "pos": 3,
+          "description": "e.g. lb, dozen, quart, each"
+        },
+        "price_note": {
+          "type": "text",
+          "display_name": "Price note",
+          "pos": 4,
+          "description": "e.g. \"+ $2 jar deposit\" or \"~4–6 lb each\""
+        },
+        "availability": {
+          "type": "option",
+          "display_name": "Availability",
+          "pos": 5,
+          "required": true,
+          "default_value": "in_stock",
+          "options": [
+            {
+              "value": "in_stock",
+              "name": "In stock"
+            },
+            {
+              "value": "limited",
+              "name": "Limited — call ahead"
+            },
+            {
+              "value": "sold_out",
+              "name": "Sold out"
+            },
+            {
+              "value": "seasonal",
+              "name": "Seasonal"
+            },
+            {
+              "value": "reserve_only",
+              "name": "By reservation"
+            }
+          ]
+        },
+        "availability_note": {
+          "type": "text",
+          "display_name": "Availability note",
+          "pos": 6,
+          "description": "e.g. \"Back in early November\""
+        }
+      }
+    },
+    {
+      "name": "animal",
+      "display_name": "Animal",
+      "is_root": true,
+      "is_nestable": false,
+      "preview_field": "name",
+      "schema": {
+        "name": {
+          "type": "text",
+          "display_name": "Name",
+          "pos": 0,
+          "required": true
+        },
+        "species": {
+          "type": "option",
+          "display_name": "Species",
+          "pos": 1,
+          "required": true,
+          "options": [
+            {
+              "value": "cattle",
+              "name": "Cattle"
+            },
+            {
+              "value": "pig",
+              "name": "Pig"
+            }
+          ]
+        },
+        "role": {
+          "type": "option",
+          "display_name": "Role",
+          "pos": 2,
+          "required": true,
+          "options": [
+            {
+              "value": "milk_cow",
+              "name": "Milk cow"
+            },
+            {
+              "value": "brood_cow",
+              "name": "Brood cow"
+            },
+            {
+              "value": "heifer",
+              "name": "Heifer"
+            },
+            {
+              "value": "herd_sire",
+              "name": "Herd sire"
+            },
+            {
+              "value": "steer",
+              "name": "Steer"
+            },
+            {
+              "value": "oxen_team",
+              "name": "Oxen team"
+            },
+            {
+              "value": "sow",
+              "name": "Sow"
+            },
+            {
+              "value": "boar",
+              "name": "Boar"
+            },
+            {
+              "value": "gilt",
+              "name": "Gilt"
+            }
+          ]
+        },
+        "sale_status": {
+          "type": "option",
+          "display_name": "For sale?",
+          "pos": 3,
+          "required": true,
+          "default_value": "not_for_sale",
+          "options": [
+            {
+              "value": "not_for_sale",
+              "name": "Not for sale"
+            },
+            {
+              "value": "available",
+              "name": "Available"
+            },
+            {
+              "value": "reserved",
+              "name": "Reserved"
+            },
+            {
+              "value": "sold",
+              "name": "Sold"
+            }
+          ]
+        },
+        "price": {
+          "type": "number",
+          "display_name": "Price ($)",
+          "pos": 4,
+          "description": "Only shown when the animal is available."
+        },
+        "photos": {
+          "type": "multiasset",
+          "display_name": "Photos",
+          "pos": 5,
+          "filetypes": [
+            "images"
+          ]
+        },
+        "description": {
+          "type": "richtext",
+          "display_name": "About",
+          "pos": 6
+        },
+        "breed": {
+          "type": "text",
+          "display_name": "Breed",
+          "pos": 7,
+          "description": "e.g. \"75% Mini Jersey, 25% Dexter\""
+        },
+        "born": {
+          "type": "datetime",
+          "display_name": "Date of birth",
+          "pos": 8,
+          "disable_time": true
+        },
+        "color": {
+          "type": "text",
+          "display_name": "Color",
+          "pos": 9
+        },
+        "genetics": {
+          "type": "text",
+          "display_name": "Genetics & testing",
+          "pos": 10,
+          "description": "e.g. \"A1/A2, Polled, Chondro/PHA Negative\""
+        },
+        "height": {
+          "type": "text",
+          "display_name": "Height",
+          "pos": 11,
+          "description": "e.g. \"40 in at the withers\""
+        }
+      }
+    },
+    {
+      "name": "guide",
+      "display_name": "Guide",
+      "is_root": true,
+      "is_nestable": false,
+      "preview_field": "title",
+      "schema": {
+        "title": {
+          "type": "text",
+          "display_name": "Title",
+          "pos": 0,
+          "required": true
+        },
+        "category": {
+          "type": "option",
+          "display_name": "Category",
+          "pos": 1,
+          "required": true,
+          "options": [
+            {
+              "value": "pigs",
+              "name": "Pigs"
+            },
+            {
+              "value": "cattle",
+              "name": "Cattle"
+            },
+            {
+              "value": "oxen",
+              "name": "Oxen"
+            },
+            {
+              "value": "dairy",
+              "name": "Dairy"
+            },
+            {
+              "value": "poultry",
+              "name": "Poultry"
+            },
+            {
+              "value": "general",
+              "name": "General"
+            }
+          ]
+        },
+        "summary": {
+          "type": "textarea",
+          "display_name": "Summary",
+          "pos": 2,
+          "required": true,
+          "max_length": 240,
+          "description": "One or two sentences for the guide list and Google."
+        },
+        "hero_image": {
+          "type": "asset",
+          "display_name": "Main photo",
+          "pos": 3,
+          "filetypes": [
+            "images"
+          ]
+        },
+        "body": {
+          "type": "richtext",
+          "display_name": "Guide text",
+          "pos": 4,
+          "required": true,
+          "restrict_components": true,
+          "component_whitelist": [
+            "image_block",
+            "callout"
+          ]
+        },
+        "updated_at": {
+          "type": "datetime",
+          "display_name": "Last reviewed",
+          "pos": 5,
+          "disable_time": true,
+          "description": "Shown to readers as \"Updated …\"."
+        },
+        "legacy_path": {
+          "type": "text",
+          "display_name": "Old website address",
+          "pos": 6,
+          "description": "Filled in during migration. Leave as is."
+        }
+      }
+    },
+    {
+      "name": "page",
+      "display_name": "Page",
+      "is_root": true,
+      "is_nestable": false,
+      "schema": {
+        "title": {
+          "type": "text",
+          "display_name": "Title",
+          "pos": 0,
+          "required": true
+        },
+        "intro": {
+          "type": "textarea",
+          "display_name": "Intro",
+          "pos": 1
+        },
+        "body": {
+          "type": "bloks",
+          "display_name": "Sections",
+          "pos": 2,
+          "restrict_components": true,
+          "component_whitelist": [
+            "rich_text",
+            "product_list",
+            "animal_list",
+            "image_gallery",
+            "call_to_reserve",
+            "inquiry_form",
+            "guide_links"
+          ]
+        },
+        "seo_title": {
+          "type": "text",
+          "display_name": "Title in Google",
+          "pos": 3
+        },
+        "seo_description": {
+          "type": "textarea",
+          "display_name": "Description in Google",
+          "pos": 4,
+          "max_length": 160
+        },
+        "seo_image": {
+          "type": "asset",
+          "display_name": "Share image",
+          "pos": 5,
+          "filetypes": [
+            "images"
+          ]
+        }
+      }
+    },
+    {
+      "name": "rich_text",
+      "display_name": "Text",
+      "is_nestable": true,
+      "is_root": false,
+      "schema": {
+        "content": {
+          "type": "richtext",
+          "display_name": "Text",
+          "pos": 0,
+          "required": true
+        }
+      }
+    },
+    {
+      "name": "product_list",
+      "display_name": "Price list",
+      "is_nestable": true,
+      "is_root": false,
+      "schema": {
+        "heading": {
+          "type": "text",
+          "display_name": "Heading",
+          "pos": 0
+        },
+        "category": {
+          "type": "option",
+          "display_name": "Category",
+          "pos": 1,
+          "required": true,
+          "options": [
+            {
+              "value": "dairy",
+              "name": "Dairy"
+            },
+            {
+              "value": "eggs",
+              "name": "Eggs"
+            },
+            {
+              "value": "beef",
+              "name": "Beef"
+            },
+            {
+              "value": "pork",
+              "name": "Pork"
+            },
+            {
+              "value": "lamb",
+              "name": "Lamb"
+            },
+            {
+              "value": "poultry",
+              "name": "Poultry"
+            },
+            {
+              "value": "maple",
+              "name": "Maple syrup"
+            },
+            {
+              "value": "piglets",
+              "name": "Piglets"
+            },
+            {
+              "value": "shares",
+              "name": "Bulk shares"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "animal_list",
+      "display_name": "Animals",
+      "is_nestable": true,
+      "is_root": false,
+      "schema": {
+        "heading": {
+          "type": "text",
+          "display_name": "Heading",
+          "pos": 0
+        },
+        "species": {
+          "type": "option",
+          "display_name": "Species",
+          "pos": 1,
+          "required": true,
+          "options": [
+            {
+              "value": "cattle",
+              "name": "Cattle"
+            },
+            {
+              "value": "pig",
+              "name": "Pigs"
+            }
+          ]
+        },
+        "sale_status": {
+          "type": "options",
+          "display_name": "Only show",
+          "pos": 2,
+          "options": [
+            {
+              "value": "not_for_sale",
+              "name": "Not for sale"
+            },
+            {
+              "value": "available",
+              "name": "Available"
+            },
+            {
+              "value": "reserved",
+              "name": "Reserved"
+            },
+            {
+              "value": "sold",
+              "name": "Sold"
+            }
+          ],
+          "description": "Leave empty to show all."
+        }
+      }
+    },
+    {
+      "name": "image_gallery",
+      "display_name": "Photo gallery",
+      "is_nestable": true,
+      "is_root": false,
+      "schema": {
+        "images": {
+          "type": "multiasset",
+          "display_name": "Photos",
+          "pos": 0,
+          "required": true,
+          "filetypes": [
+            "images"
+          ]
+        }
+      }
+    },
+    {
+      "name": "call_to_reserve",
+      "display_name": "Call to reserve",
+      "is_nestable": true,
+      "is_root": false,
+      "schema": {
+        "heading": {
+          "type": "text",
+          "display_name": "Heading",
+          "pos": 0,
+          "required": true
+        },
+        "text": {
+          "type": "textarea",
+          "display_name": "Text",
+          "pos": 1
+        }
+      }
+    },
+    {
+      "name": "inquiry_form",
+      "display_name": "Form",
+      "is_nestable": true,
+      "is_root": false,
+      "schema": {
+        "form_name": {
+          "type": "option",
+          "display_name": "Which form",
+          "pos": 0,
+          "required": true,
+          "options": [
+            {
+              "value": "contact",
+              "name": "Contact"
+            },
+            {
+              "value": "cattle-waitlist",
+              "name": "Cattle wait list"
+            },
+            {
+              "value": "piglet-waitlist",
+              "name": "Piglet wait list"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "guide_links",
+      "display_name": "Guide links",
+      "is_nestable": true,
+      "is_root": false,
+      "schema": {
+        "heading": {
+          "type": "text",
+          "display_name": "Heading",
+          "pos": 0
+        },
+        "category": {
+          "type": "option",
+          "display_name": "Category",
+          "pos": 1,
+          "options": [
+            {
+              "value": "pigs",
+              "name": "Pigs"
+            },
+            {
+              "value": "cattle",
+              "name": "Cattle"
+            },
+            {
+              "value": "oxen",
+              "name": "Oxen"
+            },
+            {
+              "value": "dairy",
+              "name": "Dairy"
+            },
+            {
+              "value": "poultry",
+              "name": "Poultry"
+            },
+            {
+              "value": "general",
+              "name": "General"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "image_block",
+      "display_name": "Photo",
+      "is_nestable": true,
+      "is_root": false,
+      "schema": {
+        "image": {
+          "type": "asset",
+          "display_name": "Photo",
+          "pos": 0,
+          "required": true,
+          "filetypes": [
+            "images"
+          ]
+        },
+        "caption": {
+          "type": "text",
+          "display_name": "Caption",
+          "pos": 1
+        }
+      }
+    },
+    {
+      "name": "callout",
+      "display_name": "Tip box",
+      "is_nestable": true,
+      "is_root": false,
+      "schema": {
+        "heading": {
+          "type": "text",
+          "display_name": "Heading",
+          "pos": 0
+        },
+        "text": {
+          "type": "richtext",
+          "display_name": "Text",
+          "pos": 1,
+          "required": true
+        }
+      }
+    }
+  ]
+}

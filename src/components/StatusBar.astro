@@ -1,0 +1,75 @@
+---
+// Sticky farm-store status bar shown on every page.
+// The page is built ahead of time, so "open now" would go stale. We render the
+// status as of the build, then a small script recomputes it in the browser
+// from the same settings and refreshes it every minute.
+// Styling is deliberately plain until a design direction is chosen.
+import { getSiteSettings } from '../lib/content';
+import { describeHours, getStoreStatus } from '../lib/store-status';
+
+const settings = await getSiteSettings();
+const status = getStoreStatus(settings, new Date());
+const hoursText = describeHours(settings.hours).join(' · ');
+const statusSettings = {
+  timeZone: settings.timeZone,
+  hours: settings.hours,
+  closures: settings.closures,
+  statusOverride: settings.statusOverride,
+  overrideMessage: settings.overrideMessage,
+  overrideUntil: settings.overrideUntil,
+};
+---
+
+<div class="status-bar" data-open={String(status.isOpen)} data-settings={JSON.stringify(statusSettings)}>
+  <p class="status-bar__status" aria-live="polite">
+    <span class="status-bar__dot" aria-hidden="true"></span>
+    <strong class="status-bar__headline">{status.headline}</strong>
+    <span class="status-bar__detail">{status.detail}</span>
+  </p>
+  <p class="status-bar__hours">Farm store: {hoursText}</p>
+  <a class="status-bar__call" href={`tel:${settings.phone.replace(/[^\d+]/g, '')}`}>Call {settings.phone}</a>
+</div>
+
+<script>
+  import { getStoreStatus } from '../lib/store-status';
+
+  for (const bar of document.querySelectorAll<HTMLElement>('.status-bar')) {
+    const settings = JSON.parse(bar.dataset.settings!);
+    const headline = bar.querySelector('.status-bar__headline')!;
+    const detail = bar.querySelector('.status-bar__detail')!;
+    const update = () => {
+      const status = getStoreStatus(settings, new Date());
+      bar.dataset.open = String(status.isOpen);
+      headline.textContent = status.headline;
+      detail.textContent = status.detail;
+    };
+    update();
+    setInterval(update, 60_000);
+  }
+</script>
+
+<style>
+  .status-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 1.25rem;
+    padding: 0.5rem 1rem;
+    background: var(--status-bg, #1f2a1f);
+    color: var(--status-fg, #f6f3ea);
+    font-size: 0.9rem;
+  }
+  .status-bar p { margin: 0; }
+  .status-bar__status { display: flex; align-items: center; gap: 0.5rem; }
+  .status-bar__dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: var(--status-closed, #c94f3d);
+  }
+  .status-bar[data-open='true'] .status-bar__dot { background: var(--status-open, #5fb45f); }
+  .status-bar__call { margin-left: auto; color: inherit; font-weight: 600; }
+</style>

@@ -1,0 +1,16 @@
+---
+// Placeholder until a design direction is chosen (see docs/adr/0002).
+import Base from '../layouts/Base.astro';
+import { getSiteSettings } from '../lib/content';
+
+const settings = await getSiteSettings();
+const { street, town, state, zip } = settings.address;
+---
+
+<Base title="Courser Meadows — Warner, NH" description="A small grass-based farm in Warner, NH: raw milk, yogurt, eggs, grass-fed beef, pastured pork and poultry, mini cattle, and Idaho Pasture Pigs.">
+  <main style="max-width: 40rem; margin: 3rem auto; padding: 0 1rem;">
+    <h1>{settings.farmName}</h1>
+    <p>New site in progress. Visual design not chosen yet.</p>
+    <address>{street}, {town}, {state} {zip}<br /><a href={`mailto:${settings.email}`}>{settings.email}</a></address>
+  </main>
+</Base>
