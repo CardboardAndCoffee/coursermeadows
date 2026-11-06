@@ -7,7 +7,8 @@ Rebuild of [coursermeadows.com](https://www.coursermeadows.com) (WordPress/WooCo
 | | |
 |---|---|
 | Done | Full site built in the chosen design (Herd Book + Field Guide mix, [ADR 3](docs/adr/0003-design-direction.md)): 13 pages, 2 guides, forms, redirects for every old URL · Lighthouse mobile 90–100 on every page · [content map](docs/content-map.md) · [content model](docs/content-model.md) |
-| Decided | Astro + Storyblok + Netlify ([ADR 2](docs/adr/0002-astro-storyblok-netlify.md)) |
+| Decided | Astro + Storyblok ([ADR 2](docs/adr/0002-astro-storyblok-netlify.md)) |
+| Under review | Hosting: [options and risk register](docs/hosting-options.md) |
 | Waiting on the farm | Answers to the [questions for the farm](docs/questions-for-the-farm.md), especially hours and which animals are current |
 | Next | Create the Storyblok space and swap the content loaders · Netlify site + publish webhook · editor guide |
 

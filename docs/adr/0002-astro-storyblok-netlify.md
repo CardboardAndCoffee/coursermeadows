@@ -16,6 +16,8 @@ The content model is deliberately simple (see `docs/content-model.md`) and is de
 
 **Revisit if:** the guide library grows large enough that cross-referencing, structured sections, or reuse matter more than WYSIWYG editing.
 
-## Hosting: Netlify
+## Hosting: Netlify (reopened)
+
+**2026-11-06:** Hosting is back under review before anything is set up. The free plan's credit cap (about 18 publishes a month, then the site goes offline) changes the picture. See [hosting options](../hosting-options.md) for the comparison and risk register.
 
 Netlify and Vercel both work. Netlify wins on two small things: **Netlify Forms** replaces the three Ninja Forms (contact, cattle wait list, piglet wait list) with no backend and no reCAPTCHA script, and the `_redirects` file is a simple place to hold the ~250 redirects from old WordPress URLs. A Storyblok publish webhook calls a Netlify build hook to rebuild.
