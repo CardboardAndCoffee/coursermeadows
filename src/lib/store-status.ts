@@ -36,7 +36,10 @@ export function getStoreStatus(settings: HoursSettings, now: Date): StoreStatus 
       isOpen: true,
       reason: 'override',
       headline: 'Open now',
-      detail: settings.overrideMessage || todaysCloseDetail(settings, local) || 'Come on by',
+      detail:
+        afterHeadline(settings.overrideMessage, 'Open now') ||
+        openUntilDetail(settings, local, until) ||
+        'Come on by',
     };
   }
   if (overrideActive && settings.statusOverride === 'closed') {
@@ -47,14 +50,14 @@ export function getStoreStatus(settings: HoursSettings, now: Date): StoreStatus 
       // With an end time, the store reopens at the first opening from then on.
       // Without one, treat it as closed for the rest of today.
       detail:
-        settings.overrideMessage ||
+        afterHeadline(settings.overrideMessage, 'Closed') ||
         nextOpenDetail(settings, local, until ? localParts(until, settings.timeZone) : { date: addDays(local.date, 1), minutes: -1 }),
     };
   }
 
   const closure = closureOn(settings, local.date);
   if (closure) {
-    return { isOpen: false, reason: 'closure', headline: 'Closed', detail: closure.label };
+    return { isOpen: false, reason: 'closure', headline: 'Closed', detail: afterHeadline(closure.label, 'Closed') ?? '' };
   }
 
   const row = openRowAt(settings, local.weekday, local.minutes);
@@ -142,9 +145,27 @@ function openRowAt(settings: HoursSettings, weekday: Weekday, minutes: number) {
   );
 }
 
-function todaysCloseDetail(settings: HoursSettings, local: LocalParts): string | undefined {
+/**
+ * The bar shows the headline ("Closed") before the detail, so editor text that
+ * repeats it ("Closed for Thanksgiving") would read "Closed Closed for
+ * Thanksgiving". Drop the repeat.
+ */
+function afterHeadline(text: string | undefined, headline: 'Open now' | 'Closed'): string | undefined {
+  if (!text) return text;
+  const repeat = headline === 'Closed' ? /^closed\b[\s:,.;–—-]*/i : /^open(\s+now)?\b[\s:,.;–—-]*/i;
+  return text.trim().replace(repeat, '');
+}
+
+/** While forced open: "until 9 pm", "until tomorrow at 9 am", or the regular closing time if that's later. */
+function openUntilDetail(settings: HoursSettings, local: LocalParts, until: Date | undefined): string | undefined {
   const row = openRowAt(settings, local.weekday, local.minutes);
-  return row ? `until ${formatTime(row.closes)}` : undefined;
+  if (!until) return row ? `until ${formatTime(row.closes)}` : undefined;
+  const end = localParts(until, settings.timeZone);
+  const offset = daysBetween(local.date, end.date);
+  // The regular hours carry on past the override's end, so the store stays open until they close.
+  if (row && offset === 0 && end.minutes <= toMinutes(row.closes)) return `until ${formatTime(row.closes)}`;
+  const day = offset === 0 ? '' : offset === 1 ? 'tomorrow at ' : `${DAY_NAMES[end.weekday]} at `;
+  return `until ${day}${formatMinutes(end.minutes)}`;
 }
 
 /**

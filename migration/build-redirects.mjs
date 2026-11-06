@@ -25,6 +25,10 @@ const pageRedirects = [
   ['/category/*', '/'],
   ['/feed/', '/'],
   ['/feed/*', '/'],
+  // All in One SEO sitemaps, which Google already knows about.
+  ['/sitemap_index.xml', '/sitemap.xml'],
+  ['/page-sitemap.xml', '/sitemap.xml'],
+  ['/post-sitemap.xml', '/sitemap.xml'],
 ];
 
 // A page that moved also takes its attachment pages with it.

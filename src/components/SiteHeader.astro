@@ -32,6 +32,23 @@ const isCurrent = (href: string) => path === href || (href !== '/' && path.start
   </div>
 </header>
 
+<script>
+  // A <details> menu only closes when its button is pressed again. Also close
+  // it on Escape (returning focus to the button) and on a tap anywhere else.
+  for (const menu of document.querySelectorAll<HTMLDetailsElement>('.site-header .menu')) {
+    const button = menu.querySelector('summary')!;
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.open) {
+        menu.open = false;
+        button.focus();
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (menu.open && !menu.contains(e.target as Node)) menu.open = false;
+    });
+  }
+</script>
+
 <style>
   .site-header { border-bottom: 1px solid var(--rule); background: var(--paper); }
   .bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.9rem; }

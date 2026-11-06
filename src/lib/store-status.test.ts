@@ -76,8 +76,13 @@ describe('getStoreStatus — closures', () => {
 
   it('is closed on a closure day even during hours', () => {
     expect(getStoreStatus(thanksgiving, at('2026-11-26T12:00'))).toEqual({
-      isOpen: false, reason: 'closure', headline: 'Closed', detail: 'Closed for Thanksgiving',
+      isOpen: false, reason: 'closure', headline: 'Closed', detail: 'for Thanksgiving',
     });
+  });
+
+  it('does not repeat "Closed" when the label already starts with it', () => {
+    const plain: Settings = { ...base, closures: [{ from: '2026-11-26', to: '2026-11-26', label: 'Thanksgiving Day' }] };
+    expect(getStoreStatus(plain, at('2026-11-26T12:00')).detail).toBe('Thanksgiving Day');
   });
 
   it('skips closure days when saying when it next opens', () => {
@@ -100,7 +105,20 @@ describe('getStoreStatus — editor override', () => {
       { ...base, statusOverride: 'closed', overrideMessage: 'Closed today — snowed in' },
       at('2026-11-05T10:00'),
     );
-    expect(s).toEqual({ isOpen: false, reason: 'override', headline: 'Closed', detail: 'Closed today — snowed in' });
+    // Shown as "Closed today — snowed in", not "Closed Closed today…".
+    expect(s).toEqual({ isOpen: false, reason: 'override', headline: 'Closed', detail: 'today — snowed in' });
+  });
+
+  it('forced open with an end time says how long it stays open', () => {
+    const open = (until: string) => ({ ...base, statusOverride: 'open' as const, overrideUntil: until });
+    // Open late tonight: past the regular 7 pm close.
+    expect(getStoreStatus(open('2026-11-05T21:00:00-05:00'), at('2026-11-05T17:00')).detail).toBe('until 9 pm');
+    // Override ends before the regular close: the regular hours carry on.
+    expect(getStoreStatus(open('2026-11-05T15:00:00-05:00'), at('2026-11-05T10:00')).detail).toBe('until 7 pm');
+    // Opened early on a closed morning, override runs into tomorrow.
+    expect(getStoreStatus(open('2026-11-06T08:00:00-05:00'), at('2026-11-05T20:00')).detail).toBe('until tomorrow at 8 am');
+    // Editor's message that repeats "Open".
+    expect(getStoreStatus({ ...base, statusOverride: 'open', overrideMessage: 'Open late tonight' }, at('2026-11-05T20:00')).detail).toBe('late tonight');
   });
 
   it('forced closed without a message says when it next opens', () => {

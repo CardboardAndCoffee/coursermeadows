@@ -54,6 +54,7 @@ Rule: **every content URL keeps its path** unless there's a reason to move it. C
 | `/paypal-order-complete/` | PayPal Order Complete | 2020-04 | **301 → `/farm-store/`** | |
 | `/shop/`, `/product/*`, `/product-category/*` | (WooCommerce, already 404) | — | **301 → `/farm-store/`** | Catches old inbound links, e.g. from `/bulk-meat/`. |
 | `/category/*`, `/feed/` | WordPress system pages | — | **301 → `/`** | |
+| `/sitemap_index.xml`, `/page-sitemap.xml`, `/post-sitemap.xml` | All in One SEO sitemaps | — | **301 → `/sitemap.xml`** | The new sitemap is built from the pages and guides. |
 | 235 attachment pages, e.g. `/meet-the-herd/fern-on-pasture/` | Image pages | — | **301 → parent page** (or `/` if the image had no parent) | Generated from `migration/wp-export/attachments.json`. |
 
 New pages with no old equivalent: `/guides/` (index), `/guides/raising-idaho-pasture-pigs/`, `/guides/mini-oxen/`, `/thanks/` (after a form is sent), and a 404 page.

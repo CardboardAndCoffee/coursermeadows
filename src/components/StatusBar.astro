@@ -37,11 +37,13 @@ const statusSettings = {
     const settings = JSON.parse(bar.dataset.settings!);
     const headline = bar.querySelector('.status-bar__headline')!;
     const detail = bar.querySelector('.status-bar__detail')!;
+    // Only touch the text when it changes: the status is a live region, and
+    // rewriting it every minute makes screen readers announce it every minute.
     const update = () => {
       const status = getStoreStatus(settings, new Date());
       bar.dataset.open = String(status.isOpen);
-      headline.textContent = status.headline;
-      detail.textContent = status.detail;
+      if (headline.textContent !== status.headline) headline.textContent = status.headline;
+      if (detail.textContent !== status.detail) detail.textContent = status.detail;
     };
     update();
     setInterval(update, 60_000);

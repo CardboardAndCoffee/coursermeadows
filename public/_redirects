@@ -20,6 +20,9 @@
 /category/*  /  301
 /feed/  /  301
 /feed/*  /  301
+/sitemap_index.xml  /sitemap.xml  301
+/page-sitemap.xml  /sitemap.xml  301
+/post-sitemap.xml  /sitemap.xml  301
 
 # WordPress attachment pages -> the page the image belonged to
 /meet-the-herd/lavendar-on-pasture-2/  /meet-the-herd/  301
