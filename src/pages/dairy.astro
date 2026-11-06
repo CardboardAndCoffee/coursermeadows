@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import ProductList from '../components/ProductList.astro';
+import CallBand from '../components/CallBand.astro';
+import { getProducts } from '../lib/content';
+import daisy from '../assets/photos/daisy.jpg';
+
+const dairy = await getProducts('dairy');
+---
+
+<Base title="Raw Milk & Yogurt" description="100% grass-fed raw milk and small-batch yogurt from Courser Meadows in Warner, NH. Tested herd, no GMOs, hormones, or antibiotics.">
+  <PageIntro
+    kicker="Dairy"
+    title="100% grass-fed raw milk and yogurt"
+    lede="From our Dexters and Irish Jerseys, sold in glass jars at the farm store."
+    photo={{ src: daisy, alt: 'Daisy, a red brindle milk cow, standing in tall grass and wildflowers' }}
+  />
+
+  <section class="wrap cols">
+    <div class="prose">
+      <h2>How we produce it</h2>
+      <p>We work hard to keep a healthy herd and a sanitary milking environment. All our dairy cows are tested every year for TB, Brucellosis, Johne's, and BLV, and we test milk samples for bacteria regularly.</p>
+      <p>Our dairy cows eat a 100% grass-based diet, supplemented with certified-organic kelp and Redmond's trace minerals. Our dairy products are free of GMOs, growth hormones, and antibiotics.</p>
+      <p>At least half the year, while they're out grazing, we move the cows to fresh pasture every day. The rest of the year they still have access to the outdoors, and they eat hay from our own fields. Our cows are spoiled and well cared for, so they stay happy (we think so, anyway!) and productive in the herd far longer than on typical commercial farms.</p>
+      <h2>Yogurt</h2>
+      <p>Our yogurts are made in small batches and full of probiotics. The plain yogurt is just milk and culture. The flavored ones use pure natural extracts and are lightly sweetened with Courser Farm's 100% pure maple syrup. No cane sugar, thickeners, or other additives. All yogurts come in quart glass jars.</p>
+    </div>
+    <aside class="stack side">
+      <ProductList products={dairy} heading="At the farm store" />
+      <p class="panel">Supply is limited. Call or email to reserve milk with the amount and the day you'll pick up, and we'll label it in the farm fridge for you.</p>
+    </aside>
+  </section>
+
+  <CallBand />
+</Base>
+
+<style>
+  .cols { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 2rem 4rem; padding-block: 1rem; }
+  .cols .prose h2:first-child { margin-top: 0; }
+  .side { align-content: start; position: sticky; top: 3.5rem; }
+  @media (max-width: 800px) { .cols { grid-template-columns: 1fr; } .side { position: static; } }
+</style>

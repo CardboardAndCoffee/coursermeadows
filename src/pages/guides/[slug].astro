@@ -1,0 +1,69 @@
+---
+// Field Guide reading layout: photo opener, sticky contents, comfortable column.
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PhotoHero from '../../components/PhotoHero.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import CallBand from '../../components/CallBand.astro';
+import { getGuides } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map((guide) => ({ params: { slug: guide.id }, props: { guide } }));
+}
+
+const { guide } = Astro.props;
+const { Content, headings } = await render(guide);
+const sections = headings.filter((h) => h.depth === 2);
+const words = guide.body?.split(/\s+/).length ?? 0;
+const minutes = Math.max(1, Math.round(words / 230));
+const others = (await getGuides()).filter((g) => g.id !== guide.id);
+const CATEGORY: Record<string, string> = { pigs: 'Pigs', cattle: 'Cattle', oxen: 'Oxen', dairy: 'Dairy', poultry: 'Poultry', general: 'Farm' };
+const updated = guide.data.updatedAt.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+---
+
+<Base title={guide.data.title} description={guide.data.summary}>
+  <PhotoHero photo={guide.data.hero} kicker={`Guide · ${CATEGORY[guide.data.category]}`} title={guide.data.title} lede={guide.data.summary} />
+
+  <div class="wrap layout">
+    <aside class="toc">
+      <p class="meta"><span>By the Courser Meadows family</span><span>{minutes} min read · Updated {updated}</span></p>
+      {sections.length > 1 && (
+        <nav aria-label="In this guide">
+          <p class="kicker">In this guide</p>
+          <ol>
+            {sections.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+          </ol>
+        </nav>
+      )}
+    </aside>
+    <article class="prose">
+      <Content />
+    </article>
+  </div>
+
+  {others.length > 0 && (
+    <section class="section wrap">
+      <div class="section-head"><h2>More from the farm</h2></div>
+      <div class="more">{others.map((g) => <GuideCard guide={g} />)}</div>
+    </section>
+  )}
+
+  <CallBand />
+</Base>
+
+<style>
+  .layout { display: grid; grid-template-columns: minmax(190px, 240px) minmax(0, 1fr); gap: 2rem clamp(2rem, 5vw, 4.5rem); padding-block: clamp(32px, 5vw, 60px); }
+  .toc { position: sticky; top: 3.5rem; align-self: start; display: grid; gap: 1.2rem; font-family: var(--font-label); }
+  .meta { display: grid; gap: 0.15rem; font-size: 0.88rem; color: var(--muted); padding-bottom: 1rem; border-bottom: 1px solid var(--rule); }
+  .toc ol { list-style: none; margin: 0.5rem 0 0; padding: 0; display: grid; gap: 0.1rem; counter-reset: s; }
+  .toc li { counter-increment: s; display: flex; gap: 0.6rem; }
+  .toc li::before { content: counter(s); color: var(--ochre); width: 1.1em; font-variant-numeric: tabular-nums; padding-top: 0.35rem; }
+  .toc a { display: block; padding: 0.3rem 0; font-weight: 600; color: var(--ink); text-decoration: none; }
+  .toc a:hover { color: var(--green); text-decoration: underline; }
+  .more { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 2rem; }
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+    .toc { position: static; }
+  }
+</style>

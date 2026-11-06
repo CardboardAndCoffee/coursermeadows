@@ -1,0 +1,56 @@
+---
+// Herd Book record card: photo, name, role, and the details buyers ask about.
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { animal: CollectionEntry<'animals'>['data'] }
+const { animal } = Astro.props;
+
+const ROLE: Record<string, string> = {
+  milk_cow: 'Milk cow', brood_cow: 'Brood cow', heifer: 'Heifer', herd_sire: 'Herd sire', steer: 'Steer',
+  oxen_team: 'Oxen team', sow: 'Sow', boar: 'Boar', gilt: 'Gilt',
+};
+const STATUS: Record<string, string> = { available: 'For sale', reserved: 'Reserved', sold: 'Sold' };
+
+const formatDate = (iso: string) => {
+  const [y, m, d] = iso.split('-');
+  return `${m}/${d}/${y}`;
+};
+const rows = [
+  ['Breed', animal.breed],
+  ['Born', animal.born && formatDate(animal.born)],
+  ['Color', animal.color],
+  ['Height', animal.height],
+  ['Milk', animal.milk],
+  ['Genetics', animal.genetics],
+].filter(([, v]) => v) as [string, string][];
+const status = STATUS[animal.saleStatus];
+---
+
+<article class="card">
+  <Image src={animal.photo.src} alt={animal.photo.alt} widths={[360, 600]} sizes="(max-width: 600px) 100vw, 300px" />
+  <div class="body">
+    <div class="top">
+      <h3>{animal.name}</h3>
+      <span class:list={['pill', animal.saleStatus]}>{status ?? ROLE[animal.role]}</span>
+    </div>
+    <p class="summary">{animal.summary}</p>
+    <dl class="data">
+      {rows.map(([k, v]) => (<><dt>{k}</dt><dd>{v}</dd></>))}
+    </dl>
+    {animal.saleStatus === 'available' && animal.price && <p class="price">${animal.price}</p>}
+  </div>
+</article>
+
+<style>
+  .card { background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+  .card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .body { padding: 0.9rem 1rem 1.1rem; display: grid; gap: 0.6rem; align-content: start; }
+  .top { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; }
+  h3 { font-size: 1.45rem; }
+  .summary { font-size: 0.98rem; line-height: 1.5; }
+  dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.15rem 0.75rem; font-size: 0.74rem; line-height: 1.45; }
+  dt { color: var(--muted); }
+  dd { margin: 0; min-width: 0; }
+  .price { font-family: var(--font-data); font-weight: 500; }
+</style>

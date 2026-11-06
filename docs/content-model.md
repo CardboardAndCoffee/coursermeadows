@@ -34,6 +34,8 @@ The time zone is fixed to `America/New_York` in code.
 
 Order within a category = order in the CMS folder (drag to reorder). No cart or checkout; every list ends in a "Call to reserve" button.
 
+**Prices are optional, item by item.** A price shows only when the editor fills it in. The farm prefers not to post store prices (other farms can look them up and undercut), so at launch the store, dairy, and bulk pages show what's carried with no prices, and the piglet prices (which the farm already posts) stay. Turning a price on later is just typing it in.
+
 Source for the first import: about 70 priced items on the old Farm Store, Dairy, Eggs, Bulk Meat, Products List, and IPP For Sale pages (in `migration/content/`). **Most of those prices are from 2019–2020 and need the farm to confirm before import.**
 
 ## `animal` — herd members, breeding stock, and livestock for sale

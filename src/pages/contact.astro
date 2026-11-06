@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import InquiryForm from '../components/InquiryForm.astro';
+import { getSiteSettings } from '../lib/content';
+import { describeHours } from '../lib/store-status';
+
+const s = await getSiteSettings();
+const { street, town, state, zip } = s.address;
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${s.farmName}, ${street}, ${town}, ${state} ${zip}`)}`;
+const tel = s.phone.replace(/[^\d+]/g, '');
+---
+
+<Base title="Visit & Contact" description={`Directions, hours, and contact details for Courser Meadows, ${street}, ${town}, ${state}.`}>
+  <PageIntro kicker="Visit" title="Find us" lede="Come by the farm store, or get in touch with questions about our animals, products, or directions." />
+
+  <section class="wrap cards">
+    <div class="card stack">
+      <p class="kicker">Address</p>
+      <p class="big">{street}<br />{town}, {state} {zip}</p>
+      <p><a class="btn alt" href={mapsUrl}>Open in Google Maps</a></p>
+    </div>
+    <div class="card stack">
+      <p class="kicker">Farm store hours</p>
+      <p class="big">{describeHours(s.hours).map((line) => <>{line}<br /></>)}</p>
+      {s.hoursNote && <p>{s.hoursNote}</p>}
+    </div>
+    <div class="card stack">
+      <p class="kicker">Phone & email</p>
+      <p class="big"><a href={`tel:${tel}`}>{s.phone}</a></p>
+      <p><a href={`mailto:${s.email}`}>{s.email}</a></p>
+      {s.facebookUrl && <p><a href={s.facebookUrl}>Facebook</a></p>}
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <InquiryForm form="contact" heading="Send us a message" intro="We'll get back to you by email or phone." />
+  </section>
+</Base>
+
+<style>
+  .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .card { background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); padding: 1.3rem 1.4rem; align-content: start; }
+  .big { font-family: var(--font-display); font-size: 1.45rem; line-height: 1.3; color: var(--green); }
+  .big a { text-decoration: none; }
+  @media (max-width: 800px) { .cards { grid-template-columns: 1fr; } }
+</style>

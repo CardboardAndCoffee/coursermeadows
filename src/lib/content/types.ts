@@ -103,6 +103,10 @@ export interface Animal {
   genetics?: string;
   /** Free text, e.g. "40 in at the withers". */
   height?: string;
+  /** Free text, e.g. "2 gal on once-daily milking". */
+  milk?: string;
+  /** One or two sentences shown on the animal's card. */
+  summary: string;
   description?: RichText;
   photos: Image[];
   saleStatus: SaleStatus;

@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import CallBand from '../../components/CallBand.astro';
+import { getGuides } from '../../lib/content';
+
+const guides = await getGuides();
+---
+
+<Base title="Guides" description="Practical guides from Courser Meadows on raising Idaho Pasture Pigs and keeping mini cattle, written from our own experience on a small grass-based farm.">
+  <PageIntro
+    kicker="From the farm"
+    title="Guides"
+    lede="What we've learned raising animals on grass, written down for anyone starting out with pigs or mini cattle."
+  />
+  <section class="wrap grid">
+    {guides.map((g) => <GuideCard guide={g} size="large" />)}
+  </section>
+  <CallBand />
+</Base>
+
+<style>
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 2.5rem 2rem; }
+</style>

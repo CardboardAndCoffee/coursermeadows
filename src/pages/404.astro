@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+---
+
+<Base title="Page not found" description="This page isn't on the Courser Meadows website.">
+  <PageIntro kicker="Page not found" title="We couldn't find that page." lede="It may have moved when we rebuilt the website. Try one of these instead.">
+    <div class="btn-row">
+      <a class="btn" href="/">Home</a>
+      <a class="btn alt" href="/meet-the-herd/">The herd</a>
+      <a class="btn alt" href="/farm-store/">Farm store</a>
+      <a class="btn alt" href="/guides/">Guides</a>
+    </div>
+  </PageIntro>
+</Base>

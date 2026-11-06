@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { getSiteSettings } from '../lib/content';
+
+const s = await getSiteSettings();
+---
+
+<Base title="Privacy" description="How Courser Meadows handles the information you send through this website.">
+  <PageIntro title="Privacy" />
+  <section class="wrap">
+    <div class="prose">
+      <p>This website doesn't sell anything online and doesn't use advertising or tracking cookies.</p>
+      <h2>What we collect</h2>
+      <p>When you send a message or join a wait list, we receive what you type in the form: your name, email, phone number if you give it, and your message. We use it only to reply to you and to contact you about the animals or products you asked about.</p>
+      <h2>Who sees it</h2>
+      <p>Form submissions are handled by our website host, Netlify, and emailed to us. We don't sell or share your information with anyone else.</p>
+      <h2>Removing your information</h2>
+      <p>To be taken off a wait list or have your messages deleted, email <a href={`mailto:${s.email}`}>{s.email}</a> or call {s.phone}.</p>
+    </div>
+  </section>
+</Base>

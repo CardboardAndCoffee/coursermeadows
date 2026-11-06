@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import ProductList from '../components/ProductList.astro';
+import CallBand from '../components/CallBand.astro';
+import { getProducts, getSiteSettings } from '../lib/content';
+import { describeHours } from '../lib/store-status';
+import ginger from '../assets/photos/ginger.jpg';
+
+const s = await getSiteSettings();
+const groups = [
+  { heading: 'Dairy & eggs', items: await getProducts('dairy', 'eggs'), link: { href: '/dairy/', label: 'About our raw milk' } },
+  { heading: '100% grass-fed beef', items: await getProducts('beef') },
+  { heading: 'Pastured pork', note: 'Fed 100% certified organic grain', items: await getProducts('pork') },
+  { heading: 'Pastured chicken', note: 'Fed 100% certified organic grain', items: await getProducts('poultry') },
+  { heading: 'Maple syrup', items: await getProducts('maple') },
+  { heading: 'Buy in bulk', items: await getProducts('shares'), link: { href: '/bulk-meat/', label: 'Beef shares and fresh chicken' } },
+].filter((g) => g.items.length > 0);
+const anyPrices = groups.some((g) => g.items.some((i) => i.data.price !== undefined));
+---
+
+<Base title="Farm Store" description="The Courser Meadows farm store in Warner, NH: raw milk, yogurt, free-range eggs, grass-fed beef, pastured pork and chicken, and maple syrup. Open daily.">
+  <PageIntro
+    kicker={`Open ${describeHours(s.hours).join(', ').toLowerCase()}`}
+    title="The farm store"
+    lede={`Stop by ${s.address.street} in ${s.address.town} and browse. If you want a certain amount of something, call or email and we'll have it boxed and ready for you.`}
+    photo={{ src: ginger, alt: 'Ginger, one of our milk cows, grazing on pasture' }}
+  >
+    <div class="btn-row"><a class="btn" href={`tel:${s.phone.replace(/[^\d+]/g, '')}`}>Call {s.phone}</a><a class="btn alt" href="/contact/">Directions</a></div>
+  </PageIntro>
+
+  <section class="section wrap">
+    <div class="section-head">
+      <h2>What we carry</h2>
+      {!anyPrices && <span class="data">Prices are posted in the store. Call for current prices and availability.</span>}
+    </div>
+    <div class="groups">
+      {groups.map((g) => (
+        <div class="group stack">
+          <ProductList products={g.items} heading={g.heading} />
+          {g.note && <p class="note">{g.note}</p>}
+          {g.link && <p><a href={g.link.href}>{g.link.label} →</a></p>}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CallBand heading="Reserve ahead" text="Tell us what you'd like and when you're coming. We'll label it and have it waiting for you in the farm fridge or freezer." />
+</Base>
+
+<style>
+  .groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 2.5rem 2.5rem; }
+  .group { align-content: start; }
+  .note { font-family: var(--font-label); font-size: 0.9rem; color: var(--muted); }
+</style>

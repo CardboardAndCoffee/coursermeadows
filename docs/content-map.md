@@ -33,15 +33,15 @@ Rule: **every content URL keeps its path** unless there's a reason to move it. C
 | Old URL | Title | Last edited | New home | Notes |
 |---|---|---|---|---|
 | `/` | (Home) | 2024-11 | `/` | Rebuild. Hours text moves into `siteSettings`. |
-| `/farm-store/` | Farm Store | 2020-04 | `/farm-store/` | Becomes the price list, built from `product` entries. **Prices date from 2019–2020** and mention "more cuts in mid December, 2019". Need a fresh price list from the farm. |
+| `/farm-store/` | Farm Store | 2020-04 | `/farm-store/` | Built from `product` entries. **Prices are not shown** (the farm's choice; see content model); the list says what's carried and invites a call. |
 | `/dairy/` | Dairy | 2020-04 | `/dairy/` | Explainer text + live dairy products. |
-| `/eggs/` | Eggs | 2020-04 | `/eggs/` | Short. Could fold into `/farm-store/` later; keep the URL for now. |
+| `/eggs/` | Eggs | 2020-04 | **301 → `/farm-store/`** | Only a few lines. Eggs are listed with dairy on the farm store page. |
 | `/bulk-meat/` | Bulk Meat | 2020-05 | `/bulk-meat/` | Beef shares + broilers. Says "Fall 2020" and links to `/shop/` (dead). Rewrite dates; CTA becomes "call to reserve". |
 | `/meet-the-herd/` | Meet The Herd | 2024-11 | `/meet-the-herd/` | Built from `animal` entries (9 cows, 7 sires). |
 | `/cows-for-sale/` | Cows For Sale | 2024-07 | `/cows-for-sale/` | Built from `animal` entries with a sale status. **Every listing is SOLD** and most are from 2019–2020. Needs an empty state ("Nothing available right now — call to join the wait list"). |
 | `/idaho-pasture-pigs-for-sale/` | Idaho Pasture Pigs For Sale | 2026-07 | `/idaho-pasture-pigs-for-sale/` | The one page kept current (Spring/Summer 2026 prices). Prices become `product` entries; the wait-list form becomes a Netlify form. |
 | `/idaho-pasture-pigs/` | Idaho Pasture Pigs | 2024-10 | `/idaho-pasture-pigs/` + **new** `/guides/raising-idaho-pasture-pigs/` | Split. Breed intro + breeding stock stay here; the tips move to the guide, with a prominent link both ways. **Breeding-stock bios are stale** ("next litter expected March 2022"). |
-| `/mini-cows/` | Mini Oxen | 2020-04 | `/mini-oxen/` | Slug and title disagree (and "Mini Cows" in the nav points to Meet the Herd). 301 `/mini-cows/` → `/mini-oxen/`. |
+| `/mini-cows/` | Mini Oxen | 2020-04 | **301 → `/guides/mini-oxen/`** | Slug and title disagreed. The text is now the "Mini cattle as oxen" guide. |
 | `/contact/` | Contact Us | 2021-10 | `/contact/` | Address/phone/email come from `siteSettings`. Netlify form replaces Ninja Forms. Keep the map, but as a static image or click-to-load so it doesn't hurt Lighthouse. |
 | `/privacy-policy/` | Privacy Policy | 2020-04 | `/privacy-policy/` | Old text is e-commerce boilerplate. Needs a short rewrite (forms + newsletter only). |
 | `/terms-conditions/` | Terms & Conditions | 2020-04 | **301 → `/`** | Online-store terms; no longer apply. *(Owner to confirm.)* |
@@ -56,7 +56,7 @@ Rule: **every content URL keeps its path** unless there's a reason to move it. C
 | `/category/*`, `/feed/` | WordPress system pages | — | **301 → `/`** | |
 | 235 attachment pages, e.g. `/meet-the-herd/fern-on-pasture/` | Image pages | — | **301 → parent page** (or `/` if the image had no parent) | Generated from `migration/wp-export/attachments.json`. |
 
-New pages with no old equivalent: `/guides/` (index) and the guide pages.
+New pages with no old equivalent: `/guides/` (index), `/guides/raising-idaho-pasture-pigs/`, `/guides/mini-oxen/`, `/thanks/` (after a form is sent), and a 404 page.
 
 All redirects are generated into `public/_redirects` by `npm run redirects` (see [`migration/build-redirects.mjs`](../migration/build-redirects.mjs)).
 

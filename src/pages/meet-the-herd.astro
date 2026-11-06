@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import AnimalGrid from '../components/AnimalGrid.astro';
+import CallBand from '../components/CallBand.astro';
+import { getAnimals } from '../lib/content';
+import primrose from '../assets/photos/primrose.jpg';
+
+const cows = await getAnimals({ species: 'cattle', roles: ['milk_cow', 'brood_cow', 'heifer'] });
+const sires = await getAnimals({ species: 'cattle', roles: ['herd_sire'] });
+---
+
+<Base title="Meet the Herd" description="The mini cattle of Courser Meadows: Mini Jerseys, Lowline Angus, and Irish Jerseys raised on grass in Warner, NH, with breed, height, and genetics for each cow.">
+  <PageIntro
+    kicker="Mini cattle"
+    title="Meet the herd"
+    lede="We raise small-breed cattle (Mini Jerseys, Lowline Angus, and Irish Jerseys) for their easy handling, sweet dispositions, grazing ability, mothering, and their many uses for dairy, beef, and oxen."
+    photo={{ src: primrose, alt: 'Primrose, a white cow with black speckles, in the barn with her calf' }}
+  >
+    <div class="btn-row"><a class="btn" href="/cows-for-sale/">Cattle for sale</a><a class="btn alt" href="/guides/mini-oxen/">Mini cattle as oxen</a></div>
+  </PageIntro>
+
+  <section class="wrap facts">
+    <div><span class="kicker">Mature height</span><span class="figure">39–45 in</span><span class="note">at the withers</span></div>
+    <div><span class="kicker">Milk</span><span class="figure">1–3 gal</span><span class="note">a day per cow</span></div>
+    <div><span class="kicker">Health testing</span><span class="figure">Every year</span><span class="note">milk cows test negative for BLV, BVD, and Johne's</span></div>
+    <div><span class="kicker">Good for</span><span class="figure">Homesteads</span><span class="note">small acreage, dual- and tri-purpose herds</span></div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head"><h2>Our cows</h2><span class="data">{cows.length} cows</span></div>
+    <AnimalGrid animals={cows} />
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head"><h2>Past, current, and future herd sires</h2><span class="data">{sires.length} bulls</span></div>
+    <AnimalGrid animals={sires} />
+  </section>
+
+  <CallBand heading="Interested in our cattle?" text="We have breeding, dairy, pet, and beef cattle available through the year. Call or email with questions, or join the wait list." />
+</Base>
+
+<style>
+  .facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--rule); border-block: 1px solid var(--rule); padding-inline: 0; }
+  .facts > div { background: var(--paper); padding: 1.1rem var(--gutter); display: grid; gap: 0.15rem; align-content: start; }
+  .figure { font-family: var(--font-display); font-size: 1.7rem; color: var(--green); line-height: 1.15; }
+  .note { font-size: 0.92rem; color: var(--muted); }
+  @media (max-width: 860px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 460px) { .facts { grid-template-columns: 1fr; } }
+</style>

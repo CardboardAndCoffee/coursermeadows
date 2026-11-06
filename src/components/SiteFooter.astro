@@ -1,0 +1,38 @@
+---
+import { getSiteSettings } from '../lib/content';
+import { describeHours } from '../lib/store-status';
+
+const s = await getSiteSettings();
+const { street, town, state, zip } = s.address;
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${s.farmName}, ${street}, ${town}, ${state} ${zip}`)}`;
+---
+
+<footer class="site-footer">
+  <div class="wrap cols">
+    <div class="stack">
+      <p class="name">{s.farmName}</p>
+      <p>A small grass-based farm in Warner, New Hampshire.</p>
+    </div>
+    <div class="stack">
+      <p class="kicker">Farm store</p>
+      <p>{describeHours(s.hours).map((line) => <>{line}<br /></>)}{s.hoursNote}</p>
+      <p><a href={mapsUrl}>{street}<br />{town}, {state} {zip}</a></p>
+    </div>
+    <div class="stack">
+      <p class="kicker">Get in touch</p>
+      <p><a href={`tel:${s.phone.replace(/[^\d+]/g, '')}`}>{s.phone}</a><br /><a href={`mailto:${s.email}`}>{s.email}</a></p>
+      {s.facebookUrl && <p><a href={s.facebookUrl}>Facebook</a></p>}
+    </div>
+  </div>
+  <div class="wrap small"><span>© {new Date().getFullYear()} {s.farmName}</span><a href="/privacy-policy/">Privacy</a></div>
+</footer>
+
+<style>
+  .site-footer { background: var(--green); color: var(--on-dark); margin-top: clamp(40px, 6vw, 80px); padding-block: 2.5rem 1.5rem; }
+  .site-footer a { color: inherit; }
+  .site-footer .kicker { color: #d9b46b; }
+  .cols { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 2rem; }
+  .name { font-family: var(--font-display); font-size: 1.6rem; }
+  .small { display: flex; gap: 1.5rem; margin-top: 2rem; font-family: var(--font-label); font-size: 0.85rem; opacity: 0.8; }
+  @media (max-width: 720px) { .cols { grid-template-columns: 1fr; gap: 1.5rem; } }
+</style>

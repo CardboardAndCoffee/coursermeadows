@@ -3,7 +3,6 @@
 // The page is built ahead of time, so "open now" would go stale. We render the
 // status as of the build, then a small script recomputes it in the browser
 // from the same settings and refreshes it every minute.
-// Styling is deliberately plain until a design direction is chosen.
 import { getSiteSettings } from '../lib/content';
 import { describeHours, getStoreStatus } from '../lib/store-status';
 
@@ -23,10 +22,11 @@ const statusSettings = {
 <div class="status-bar" data-open={String(status.isOpen)} data-settings={JSON.stringify(statusSettings)}>
   <p class="status-bar__status" aria-live="polite">
     <span class="status-bar__dot" aria-hidden="true"></span>
+    <span class="status-bar__label">Farm store</span>
     <strong class="status-bar__headline">{status.headline}</strong>
     <span class="status-bar__detail">{status.detail}</span>
   </p>
-  <p class="status-bar__hours">Farm store: {hoursText}</p>
+  <p class="status-bar__hours">{hoursText}</p>
   <a class="status-bar__call" href={`tel:${settings.phone.replace(/[^\d+]/g, '')}`}>Call {settings.phone}</a>
 </div>
 
@@ -52,24 +52,25 @@ const statusSettings = {
   .status-bar {
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 20;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.25rem 1.25rem;
-    padding: 0.5rem 1rem;
-    background: var(--status-bg, #1f2a1f);
-    color: var(--status-fg, #f6f3ea);
+    gap: 0.15rem 1.25rem;
+    padding: 0.45rem var(--gutter);
+    background: var(--green);
+    color: var(--on-dark);
+    font-family: var(--font-label);
+   
     font-size: 0.9rem;
   }
   .status-bar p { margin: 0; }
   .status-bar__status { display: flex; align-items: center; gap: 0.5rem; }
-  .status-bar__dot {
-    width: 0.6rem;
-    height: 0.6rem;
-    border-radius: 50%;
-    background: var(--status-closed, #c94f3d);
-  }
-  .status-bar[data-open='true'] .status-bar__dot { background: var(--status-open, #5fb45f); }
-  .status-bar__call { margin-left: auto; color: inherit; font-weight: 600; }
+  .status-bar__label { opacity: 0.85; }
+  .status-bar__headline { font-weight: 700; }
+  .status-bar__dot { width: 0.6rem; height: 0.6rem; border-radius: 50%; background: #e0765f; flex: none; }
+  .status-bar[data-open='true'] .status-bar__dot { background: #7fd08f; }
+  .status-bar__hours { opacity: 0.85; }
+  .status-bar__call { margin-left: auto; color: inherit; font-weight: 600; font-variant-numeric: tabular-nums; }
+  @media (max-width: 560px) { .status-bar__hours { display: none; } }
 </style>

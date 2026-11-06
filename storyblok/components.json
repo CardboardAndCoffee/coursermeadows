@@ -586,7 +586,7 @@
           "type": "number",
           "display_name": "Price ($)",
           "pos": 2,
-          "description": "Leave empty for \"call for price\".",
+          "description": "Optional. Leave empty and no price is shown on the website.",
           "decimals": 2
         },
         "unit": {
@@ -750,39 +750,53 @@
             "images"
           ]
         },
+        "summary": {
+          "type": "textarea",
+          "display_name": "About (short)",
+          "pos": 6,
+          "required": true,
+          "max_length": 280,
+          "description": "One or two sentences for the card."
+        },
         "description": {
           "type": "richtext",
-          "display_name": "About",
-          "pos": 6
+          "display_name": "More about this animal",
+          "pos": 7
         },
         "breed": {
           "type": "text",
           "display_name": "Breed",
-          "pos": 7,
+          "pos": 8,
           "description": "e.g. \"75% Mini Jersey, 25% Dexter\""
         },
         "born": {
           "type": "datetime",
           "display_name": "Date of birth",
-          "pos": 8,
+          "pos": 9,
           "disable_time": true
         },
         "color": {
           "type": "text",
           "display_name": "Color",
-          "pos": 9
+          "pos": 10
         },
         "genetics": {
           "type": "text",
           "display_name": "Genetics & testing",
-          "pos": 10,
+          "pos": 11,
           "description": "e.g. \"A1/A2, Polled, Chondro/PHA Negative\""
         },
         "height": {
           "type": "text",
           "display_name": "Height",
-          "pos": 11,
+          "pos": 12,
           "description": "e.g. \"40 in at the withers\""
+        },
+        "milk": {
+          "type": "text",
+          "display_name": "Milk",
+          "pos": 13,
+          "description": "e.g. \"2 gal on once-daily milking\""
         }
       }
     },

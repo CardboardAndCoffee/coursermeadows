@@ -1,16 +1,106 @@
 ---
-// Placeholder until a design direction is chosen (see docs/adr/0002).
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import { getSiteSettings } from '../lib/content';
+import PhotoHero from '../components/PhotoHero.astro';
+import AnimalGrid from '../components/AnimalGrid.astro';
+import ProductList from '../components/ProductList.astro';
+import GuideCard from '../components/GuideCard.astro';
+import CallBand from '../components/CallBand.astro';
+import { getAnimals, getGuides, getProducts } from '../lib/content';
+import herd from '../assets/photos/herd-pasture.jpg';
+import piglets from '../assets/photos/piglets-1.jpg';
 
-const settings = await getSiteSettings();
-const { street, town, state, zip } = settings.address;
+const cows = (await getAnimals({ species: 'cattle', roles: ['milk_cow', 'brood_cow'] })).slice(0, 4);
+const cattleForSale = await getAnimals({ species: 'cattle', saleStatus: ['available', 'reserved'] });
+const pigletPrices = await getProducts('piglets');
+const guides = await getGuides();
 ---
 
-<Base title="Courser Meadows — Warner, NH" description="A small grass-based farm in Warner, NH: raw milk, yogurt, eggs, grass-fed beef, pastured pork and poultry, mini cattle, and Idaho Pasture Pigs.">
-  <main style="max-width: 40rem; margin: 3rem auto; padding: 0 1rem;">
-    <h1>{settings.farmName}</h1>
-    <p>New site in progress. Visual design not chosen yet.</p>
-    <address>{street}, {town}, {state} {zip}<br /><a href={`mailto:${settings.email}`}>{settings.email}</a></address>
-  </main>
+<Base
+  title="Courser Meadows · Mini cattle, Idaho Pasture Pigs & farm store in Warner, NH"
+  description="A small grass-based farm in Warner, NH. Mini cattle and registered Idaho Pasture Pigs for sale, and a farm store with raw milk, yogurt, eggs, grass-fed beef, and pastured pork."
+>
+  <PhotoHero
+    photo={{ src: herd, alt: 'The Courser Meadows herd grazing in a summer pasture at the edge of the woods' }}
+    kicker="Warner, New Hampshire"
+    title="Mini cattle and Idaho Pasture Pigs, raised on grass."
+    lede="We raise small-breed cattle for milk, beef, and oxen, and registered Idaho Pasture Pigs. Our farm store sells what we produce."
+  >
+    <div class="btn-row">
+      <a class="btn light" href="/meet-the-herd/">Meet the herd</a>
+      <a class="btn ghost" href="/farm-store/">Visit the farm store</a>
+    </div>
+  </PhotoHero>
+
+  <section class="section wrap intro">
+    <div class="stack">
+      <p class="kicker">Welcome</p>
+      <h2>A small, grass-based farm.</h2>
+    </div>
+    <div class="stack copy">
+      <p>We raise Idaho Pasture Pigs, broilers, egg layers, and tri-purpose cattle for dairy, beef, and oxen, including Lowline Angus, Miniature Jerseys, and Irish Jerseys.</p>
+      <p>We work to raise our animals in a humane, comfortable environment while producing healthy, delicious, local food for you and your family.</p>
+      <p class="data">Herd tested negative every year for TB, Brucellosis, Johne's, and BLV</p>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head"><h2>For sale now</h2><a href="/idaho-pasture-pigs-for-sale/">All livestock for sale →</a></div>
+    <div class="sale">
+      <div class="sale-text stack">
+        <div class="title-row"><h3>Idaho Pasture Pig piglets</h3><span class="pill available">Taking reservations</span></div>
+        <p>Spring/Summer 2026 litters from registered parents, ready early July to early August.</p>
+        <ProductList products={pigletPrices} />
+        <div class="btn-row"><a class="btn" href="/idaho-pasture-pigs-for-sale/#waitlist">Join the piglet wait list</a></div>
+      </div>
+      <Image src={piglets} alt="A litter of red and spotted Idaho Pasture Pig piglets piled together in the hay" widths={[480, 800, 1100]} sizes="(max-width: 760px) 100vw, 45vw" class="sale-img" />
+    </div>
+    <div class="panel cattle">
+      {cattleForSale.length > 0 ? (
+        <p><b>Mini cattle:</b> {cattleForSale.length} available now.</p>
+      ) : (
+        <p><b>Mini cattle:</b> nothing available right now. Calves are sold weaned and halter-trained. Join the wait list and we'll let you know.</p>
+      )}
+      <a class="btn alt" href="/cows-for-sale/">{cattleForSale.length > 0 ? 'See cattle for sale' : 'Join the cattle wait list'}</a>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head"><h2>Meet the herd</h2><a href="/meet-the-herd/">All our cattle →</a></div>
+    <AnimalGrid animals={cows} />
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head"><h2>Guides from the farm</h2><a href="/guides/">All guides →</a></div>
+    <div class="guides">
+      {guides.map((g) => <GuideCard guide={g} size="large" />)}
+    </div>
+  </section>
+
+  <CallBand />
 </Base>
+
+<style>
+  .btn.light { background: var(--on-dark); color: var(--green); border-color: var(--on-dark); }
+  .btn.light:hover { background: #fff; }
+  .btn.ghost { background: transparent; color: #fff; border-color: rgb(255 255 255 / 0.7); }
+  .btn.ghost:hover { background: rgb(255 255 255 / 0.12); }
+
+  .intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 1.5rem 4rem; align-items: start; }
+  .copy { font-size: 1.15rem; max-width: 60ch; }
+  .copy .data { color: var(--muted); }
+
+  .sale { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); overflow: hidden; }
+  .sale-text { padding: clamp(18px, 3vw, 32px); align-content: start; }
+  .title-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.8rem; }
+  .sale :global(.sale-img) { width: 100%; height: 100%; object-fit: cover; min-height: 240px; }
+  .cattle { margin-top: 1rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.8rem 2rem; }
+  .cattle p { max-width: 60ch; }
+
+  .guides { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 2rem; }
+
+  @media (max-width: 760px) {
+    .intro, .sale { grid-template-columns: 1fr; }
+    .sale :global(.sale-img) { min-height: 0; aspect-ratio: 16 / 10; }
+  }
+</style>

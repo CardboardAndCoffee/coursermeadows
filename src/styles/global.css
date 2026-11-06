@@ -1,0 +1,143 @@
+/* Courser Meadows: a mix of the "Herd Book" and "Field Guide" directions.
+   Herd Book gives the animal record cards and the plain, practical voice;
+   Field Guide gives the big photo openers and the reading layout for guides.
+   One light theme, on purpose: a farm site people read outdoors on phones. */
+@import '@fontsource/gloock/latin-400.css';
+@import '@fontsource/source-serif-4/latin-400.css';
+@import '@fontsource/source-serif-4/latin-400-italic.css';
+@import '@fontsource/source-serif-4/latin-600.css';
+@import '@fontsource/archivo-narrow/latin-400.css';
+@import '@fontsource/archivo-narrow/latin-600.css';
+@import '@fontsource/archivo-narrow/latin-700.css';
+@import '@fontsource/ibm-plex-mono/latin-400.css';
+
+/* Gloock's slash and dashes are hairlines that vanish at heading sizes
+   ("39–45", "Spring/Summer"). Headings borrow those few characters from
+   Source Serif instead. */
+@font-face {
+  font-family: 'Display Punctuation';
+  src: url('../../node_modules/@fontsource/source-serif-4/files/source-serif-4-latin-600-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+002F, U+2013-2014;
+}
+
+:root {
+  /* Color */
+  --paper: #f4f5ef;      /* pasture-tinted page */
+  --card: #fbfcf8;
+  --ink: #22301f;        /* body text */
+  --green: #1f3b2b;      /* headings, buttons, status bar */
+  --moss: #3c4d34;
+  --muted: #55604f;
+  --rule: #d3d9cb;
+  --brindle: #8c3d1f;    /* "available" / for sale */
+  --ochre: #8a5d12;      /* kickers and small accents (AA on paper) */
+  --sky: #dbe6e8;        /* quiet panels */
+  --on-dark: #f4f5ef;
+
+  /* Type */
+  --font-display: 'Display Punctuation', 'Gloock', Georgia, serif;
+  --font-text: 'Source Serif 4', Georgia, serif;
+  --font-label: 'Archivo Narrow', 'Arial Narrow', system-ui, sans-serif;
+  --font-data: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.25rem;
+  --step-2: 1.6rem;
+  --step-3: clamp(1.9rem, 1.4rem + 2vw, 2.6rem);
+  --step-4: clamp(2.4rem, 1.6rem + 4vw, 4.4rem);
+
+  --gutter: clamp(16px, 4vw, 40px);
+  --max: 1200px;
+  --measure: 66ch;
+  --radius: 8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: var(--step-0);
+  line-height: 1.6;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--green); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--brindle); outline-offset: 2px; }
+
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height: 1.1; color: var(--green); text-wrap: balance; margin: 0; }
+h1 { font-size: var(--step-4); }
+h2 { font-size: var(--step-3); }
+h3 { font-size: var(--step-2); }
+p { margin: 0; }
+
+.wrap { max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+.stack { display: grid; gap: 1rem; }
+.section { padding-block: clamp(36px, 6vw, 72px); }
+.section + .section { padding-top: 0; }
+
+.kicker {
+  font-family: var(--font-label); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.78rem; color: var(--ochre);
+}
+.lede { font-size: var(--step-1); line-height: 1.5; color: var(--muted); max-width: 52ch; }
+.data { font-family: var(--font-data); font-size: 0.8rem; }
+
+.section-head {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline;
+  gap: 0.4rem 1.5rem; border-top: 2px solid var(--green); padding-top: 0.9rem; margin-bottom: 1.5rem;
+}
+.section-head h2 { font-size: var(--step-2); }
+.section-head .data { color: var(--muted); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem; justify-content: center;
+  font-family: var(--font-label); font-weight: 600; font-size: 1rem; letter-spacing: 0.01em;
+  padding: 0.75rem 1.2rem; border-radius: 6px; text-decoration: none; cursor: pointer;
+  background: var(--green); color: var(--on-dark); border: 2px solid var(--green);
+}
+.btn:hover { background: var(--moss); border-color: var(--moss); }
+.btn.alt { background: transparent; color: var(--green); }
+.btn.alt:hover { background: var(--green); color: var(--on-dark); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+.pill {
+  font-family: var(--font-data); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 0.2rem 0.5rem; border-radius: 999px; white-space: nowrap; background: var(--sky); color: var(--green);
+}
+.pill.available { background: var(--brindle); color: #fff; }
+.pill.reserved { background: #e9d9b8; color: #4d3608; }
+
+.panel { background: var(--sky); border-radius: var(--radius); padding: clamp(18px, 3vw, 28px); }
+
+/* Long-form text (guides and text pages) */
+.prose { max-width: var(--measure); display: grid; gap: 1.1rem; line-height: 1.7; font-size: 1.125rem; }
+.prose h2 { font-size: var(--step-3); margin-top: 1.6rem; scroll-margin-top: 4rem; }
+.prose h3 { font-size: var(--step-2); margin-top: 0.8rem; scroll-margin-top: 4rem; }
+.prose ul, .prose ol { margin: 0; padding-left: 1.3em; display: grid; gap: 0.4rem; }
+.prose img { border-radius: 3px; width: 100%; }
+.prose p:has(> img) + p:has(> em:only-child) {
+  font-family: var(--font-label); font-size: 0.9rem; color: var(--muted); margin-top: -0.6rem;
+}
+.prose p:has(> em:only-child) em { font-style: normal; }
+.prose blockquote {
+  margin: 0; background: var(--card); border-top: 3px solid var(--ochre); padding: 1rem 1.25rem;
+  display: grid; gap: 0.5rem; font-size: 1.05rem;
+}
+.prose blockquote strong:first-child {
+  font-family: var(--font-label); text-transform: uppercase; letter-spacing: 0.1em;
+  font-size: 0.78rem; color: var(--ochre); display: block;
+}
+.prose .table-scroll { overflow-x: auto; }
+.prose table { border-collapse: collapse; width: 100%; font-size: 1rem; font-variant-numeric: tabular-nums; }
+.prose th { text-align: left; font-family: var(--font-label); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border-bottom: 2px solid var(--green); padding: 0.4rem 0.75rem 0.4rem 0; }
+.prose td { border-bottom: 1px solid var(--rule); padding: 0.55rem 0.75rem 0.55rem 0; vertical-align: top; }
+
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }

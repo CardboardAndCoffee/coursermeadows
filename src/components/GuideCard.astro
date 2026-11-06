@@ -1,0 +1,24 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { guide: CollectionEntry<'guides'>; size?: 'large' | 'small' }
+const { guide, size = 'small' } = Astro.props;
+const CATEGORY: Record<string, string> = { pigs: 'Pigs', cattle: 'Cattle', oxen: 'Oxen', dairy: 'Dairy', poultry: 'Poultry', general: 'Farm' };
+---
+
+<a class:list={['card', size]} href={`/guides/${guide.id}/`}>
+  <Image src={guide.data.hero.src} alt={guide.data.hero.alt} widths={[480, 800]} sizes="(max-width: 700px) 100vw, 400px" />
+  <span class="kicker">{CATEGORY[guide.data.category]}</span>
+  <span class="title">{guide.data.title}</span>
+  <span class="summary">{guide.data.summary}</span>
+</a>
+
+<style>
+  .card { display: grid; gap: 0.5rem; align-content: start; text-decoration: none; color: inherit; }
+  .card img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 3px; margin-bottom: 0.3rem; }
+  .title { font-family: var(--font-display); font-size: 1.45rem; line-height: 1.15; color: var(--green); }
+  .card:hover .title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+  .summary { color: var(--muted); font-size: 1rem; line-height: 1.5; }
+  .large .title { font-size: var(--step-2); }
+</style>

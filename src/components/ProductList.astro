@@ -1,0 +1,47 @@
+---
+// What the farm store carries. A price shows only if the farm entered one;
+// otherwise the list just says what's available and invites a call.
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { products: CollectionEntry<'products'>[]; heading?: string }
+const { products, heading } = Astro.props;
+
+const AVAILABILITY: Record<string, string> = {
+  in_stock: 'In stock', limited: 'Limited', sold_out: 'Sold out', seasonal: 'Seasonal', reserve_only: 'By reservation',
+};
+const money = (n: number) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
+---
+
+<div class="list">
+  {heading && <h3>{heading}</h3>}
+  <ul>
+    {products.map(({ data: p }) => (
+      <li class:list={[p.availability]}>
+        <div class="what">
+          <span class="name">{p.name}</span>
+          {(p.priceNote || p.availabilityNote) && (
+            <span class="note">{[p.priceNote, p.availabilityNote].filter(Boolean).join(' · ')}</span>
+          )}
+        </div>
+        {p.price !== undefined ? (
+          <span class="price">{money(p.price)}{p.unit && p.unit !== 'each' ? ` /${p.unit}` : ''}</span>
+        ) : (
+          p.availability !== 'in_stock' && <span class="status">{AVAILABILITY[p.availability]}</span>
+        )}
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .list { display: grid; gap: 0.5rem; align-content: start; }
+  h3 { font-size: 1.35rem; border-bottom: 2px solid var(--green); padding-bottom: 0.35rem; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.6rem 0; border-bottom: 1px solid var(--rule); }
+  .what { display: grid; min-width: 0; }
+  .name { font-size: 1.02rem; }
+  .note { font-family: var(--font-label); font-size: 0.85rem; color: var(--muted); }
+  .price { font-family: var(--font-data); font-size: 0.95rem; white-space: nowrap; }
+  .status { font-family: var(--font-data); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); white-space: nowrap; }
+  li.sold_out .name { color: var(--muted); text-decoration: line-through; }
+</style>

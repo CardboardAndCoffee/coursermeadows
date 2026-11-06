@@ -120,7 +120,7 @@ const components = [
     schema: fields(() => ({
       name: field('text', 'Name', { required: true, description: 'e.g. "Ground beef"' }),
       category: field('option', 'Category', { required: true, options: productCategories }),
-      price: field('number', 'Price ($)', { description: 'Leave empty for "call for price".', decimals: 2 }),
+      price: field('number', 'Price ($)', { description: 'Optional. Leave empty and no price is shown on the website.', decimals: 2 }),
       unit: field('text', 'Per', { description: 'e.g. lb, dozen, quart, each' }),
       price_note: field('text', 'Price note', { description: 'e.g. "+ $2 jar deposit" or "~4–6 lb each"' }),
       availability: field('option', 'Availability', {
@@ -153,12 +153,14 @@ const components = [
       sale_status: field('option', 'For sale?', { required: true, default_value: 'not_for_sale', options: saleStatuses }),
       price: field('number', 'Price ($)', { description: 'Only shown when the animal is available.' }),
       photos: field('multiasset', 'Photos', { filetypes: ['images'] }),
-      description: field('richtext', 'About'),
+      summary: field('textarea', 'About (short)', { required: true, max_length: 280, description: 'One or two sentences for the card.' }),
+      description: field('richtext', 'More about this animal'),
       breed: field('text', 'Breed', { description: 'e.g. "75% Mini Jersey, 25% Dexter"' }),
       born: field('datetime', 'Date of birth', { disable_time: true }),
       color: field('text', 'Color'),
       genetics: field('text', 'Genetics & testing', { description: 'e.g. "A1/A2, Polled, Chondro/PHA Negative"' }),
       height: field('text', 'Height', { description: 'e.g. "40 in at the withers"' }),
+      milk: field('text', 'Milk', { description: 'e.g. "2 gal on once-daily milking"' }),
     })),
   },
   {

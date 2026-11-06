@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import PhotoHero from '../components/PhotoHero.astro';
+import AnimalGrid from '../components/AnimalGrid.astro';
+import CallBand from '../components/CallBand.astro';
+import { getAnimals } from '../lib/content';
+import hero from '../assets/photos/pig-fencing.jpg';
+
+const sows = await getAnimals({ species: 'pig', roles: ['sow', 'gilt'] });
+const boars = await getAnimals({ species: 'pig', roles: ['boar'] });
+---
+
+<Base title="Idaho Pasture Pigs" description="Why we raise registered Idaho Pasture Pigs at Courser Meadows in Warner, NH, and our breeding sows and boars.">
+  <PhotoHero
+    photo={{ src: hero, alt: 'Two Idaho Pasture Pigs grazing in lush grass behind a low electric fence' }}
+    kicker="Our pigs"
+    title="Idaho Pasture Pigs"
+    lede="A pig that grazes instead of rooting, raised on grass with unrelated breeding pairs. We sell feeder pigs and registered breeding stock."
+  >
+    <div class="btn-row"><a class="btn light" href="/idaho-pasture-pigs-for-sale/">Piglets for sale</a><a class="btn ghost" href="/guides/raising-idaho-pasture-pigs/">Read our guide to raising IPPs</a></div>
+  </PhotoHero>
+
+  <section class="section wrap why">
+    <h2>Why we raise them</h2>
+    <ul class="reasons">
+      <li><b>They graze.</b> A short, upturned snout means they eat grass instead of rooting up the pasture. That saves pastures and grain, and makes healthier (higher in omega-3s), tastier, more marbled pork.</li>
+      <li><b>Good mothers.</b> Sows are docile, excellent mothers with vigorous, well-growing piglets.</li>
+      <li><b>Easy to keep.</b> Boars mature at 300–400 lb and sows at 250–300 lb, so a breeding pair eats far less over a year than larger breeds. Both have excellent temperaments.</li>
+      <li><b>Ready in under a year.</b> Feeders reach market weight (200–250 lb) at 8 to 10 months.</li>
+    </ul>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head"><h2>Our breeding sows</h2><span class="data">{sows.length} sows</span></div>
+    <AnimalGrid animals={sows} />
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head"><h2>Our boars</h2><span class="data">{boars.length} boars</span></div>
+    <AnimalGrid animals={boars} />
+  </section>
+
+  <CallBand heading="Looking for piglets?" text="We have Spring/Summer 2026 litters from registered parents, ready early July to early August. Call or email to get on the wait list." />
+</Base>
+
+<style>
+  .btn.light { background: var(--on-dark); color: var(--green); border-color: var(--on-dark); }
+  .btn.ghost { background: transparent; color: #fff; border-color: rgb(255 255 255 / 0.7); }
+  .why { display: grid; gap: 1.5rem; }
+  .why h2 { font-size: var(--step-2); }
+  .reasons { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 3rem; }
+  .reasons li { border-top: 1px solid var(--rule); padding-top: 0.9rem; max-width: 52ch; }
+  .reasons b { display: block; font-family: var(--font-display); font-weight: 400; font-size: 1.3rem; color: var(--green); margin-bottom: 0.3rem; }
+  @media (max-width: 720px) { .reasons { grid-template-columns: 1fr; } }
+</style>

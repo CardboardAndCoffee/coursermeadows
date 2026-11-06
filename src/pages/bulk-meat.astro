@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import ProductList from '../components/ProductList.astro';
+import CallBand from '../components/CallBand.astro';
+import { getProducts } from '../lib/content';
+import licorice from '../assets/photos/licorice.jpg';
+
+const bulk = await getProducts('shares');
+---
+
+<Base title="Beef Shares & Fresh Chicken" description="Whole and half shares of 100% grass-fed beef, and fresh pastured chicken on processing days, from Courser Meadows in Warner, NH.">
+  <PageIntro
+    kicker="Buy in bulk"
+    title="Beef shares and fresh chicken"
+    lede="Keep meat on hand in your own freezer at a better price: a whole or half share of beef, or fresh chicken on our processing days."
+    photo={{ src: licorice, alt: 'Licorice, a black Lowline Angus cow, standing in a pasture' }}
+  />
+
+  <section class="wrap cols">
+    <div class="prose">
+      <h2>Grass-fed beef shares</h2>
+      <p>Our beef comes from our 100% grass-fed and finished Dexters, Lowline Angus, and Irish Jerseys. The cattle are on rotational pasture from May to November (if Mother Nature allows!) and eat hay from our own fields the rest of the year.</p>
+      <p>These are small breeds with high carcass yields. Their cuts are a little smaller, with finer striations in the muscle, so they're generally more tender than beef from larger breeds. A small animal also means a whole or half share costs less, while still giving you a good variety of steaks, burger, and roasts.</p>
+      <p>Our beef is USDA inspected. A share is usually about half steaks and half ground and roasts, but we can cut to your specifications if you reserve ahead. We're happy to go over the cut sheet with you. Processing and packaging are included.</p>
+      <p>A $100 deposit reserves your share. Final weight is determined at the butcher.</p>
+      <h2>Fresh pastured chicken</h2>
+      <p>Our broilers are raised on pasture and fed 100% certified organic feed. With room to move around and a varied diet of grasses, seeds, and insects, they have great flavor. They weigh 3 to 6 lb, and we have them fresh three or four times between June and October. Reserve ahead for 10% off, and call or email to find out the next processing date.</p>
+      <p>The rest of the year, you'll find frozen chicken in the farm store as available.</p>
+    </div>
+    <aside class="stack side">
+      <ProductList products={bulk} heading="Reserve ahead" />
+      <p class="panel">Call or email for current pricing and to reserve. Individual cuts, burger, and roasts are also in the farm store year round, as available.</p>
+    </aside>
+  </section>
+
+  <CallBand />
+</Base>
+
+<style>
+  .cols { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 2rem 4rem; padding-block: 1rem; }
+  .cols .prose h2:first-child { margin-top: 0; }
+  .side { align-content: start; position: sticky; top: 3.5rem; }
+  @media (max-width: 800px) { .cols { grid-template-columns: 1fr; } .side { position: static; } }
+</style>

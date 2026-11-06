@@ -7,7 +7,8 @@ const root = new URL('../', import.meta.url);
 
 // Old path -> new path. Keep in sync with the table in docs/content-map.md.
 const pageRedirects = [
-  ['/mini-cows/', '/mini-oxen/'],
+  ['/mini-cows/', '/guides/mini-oxen/'],
+  ['/eggs/', '/farm-store/'],
   ['/terms-conditions/', '/'],
   ['/online-store/', '/farm-store/'],
   ['/products-list/', '/farm-store/'],

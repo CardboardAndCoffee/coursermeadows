@@ -1,0 +1,62 @@
+---
+const nav = [
+  { href: '/meet-the-herd/', label: 'The Herd' },
+  { href: '/cows-for-sale/', label: 'Cattle for Sale' },
+  { href: '/idaho-pasture-pigs/', label: 'Pigs' },
+  { href: '/guides/', label: 'Guides' },
+  { href: '/farm-store/', label: 'Farm Store' },
+  { href: '/contact/', label: 'Visit' },
+];
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+---
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="logo" href="/">Courser Meadows<span class="data">Warner, NH</span></a>
+    <nav aria-label="Main">
+      <details class="menu">
+        <summary>Menu</summary>
+        <ul>
+          {nav.map((item) => (
+            <li><a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a></li>
+          ))}
+        </ul>
+      </details>
+      <ul class="inline">
+        {nav.map((item) => (
+          <li><a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header { border-bottom: 1px solid var(--rule); background: var(--paper); }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.9rem; }
+  .logo { font-family: var(--font-display); font-size: 1.5rem; color: var(--green); text-decoration: none; display: flex; align-items: baseline; gap: 0.6rem; line-height: 1.1; }
+  .logo .data { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
+  nav ul { list-style: none; margin: 0; padding: 0; }
+  nav a { font-family: var(--font-label); font-weight: 600; font-size: 0.98rem; color: var(--ink); text-decoration: none; }
+  nav a:hover { color: var(--green); text-decoration: underline; }
+  nav a[aria-current='page'] { color: var(--green); text-decoration: underline; text-decoration-thickness: 2px; }
+  .inline { display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; justify-content: flex-end; }
+  .menu { display: none; }
+  @media (max-width: 860px) {
+    .inline { display: none; }
+    .menu { display: block; position: relative; }
+    .menu summary {
+      list-style: none; cursor: pointer; font-family: var(--font-label); font-weight: 600;
+      border: 2px solid var(--green); color: var(--green); border-radius: 6px; padding: 0.4rem 0.9rem;
+    }
+    .menu summary::-webkit-details-marker { display: none; }
+    .menu[open] summary { background: var(--green); color: var(--on-dark); }
+    .menu ul {
+      position: absolute; right: 0; top: calc(100% + 8px); z-index: 30; min-width: 13rem;
+      background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius);
+      box-shadow: 0 12px 28px -12px rgb(0 0 0 / 0.3); padding: 0.4rem 0; display: grid;
+    }
+    .menu a { display: block; padding: 0.7rem 1.1rem; font-size: 1.05rem; }
+  }
+</style>

@@ -1,0 +1,58 @@
+---
+// Contact and wait-list forms. Netlify Forms collects the submissions and
+// emails them to the farm; no server or captcha script needed.
+interface Props {
+  form: 'contact' | 'cattle-waitlist' | 'piglet-waitlist';
+  heading: string;
+  intro?: string;
+}
+const { form, heading, intro } = Astro.props;
+
+const interests: Record<Props['form'], string[] | undefined> = {
+  contact: undefined,
+  'cattle-waitlist': ['Milk cow or heifer', 'Brood cow', 'Oxen team', 'Steer for beef', 'Not sure yet'],
+  'piglet-waitlist': ['Feeder pigs', 'Registered breeding gilt', 'Registered breeding boar', 'Not sure yet'],
+};
+const options = interests[form];
+const id = (name: string) => `${form}-${name}`;
+---
+
+<form class="form panel" name={form} method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="bot-field">
+  <input type="hidden" name="form-name" value={form} />
+  <p class="visually-hidden"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+  <div class="stack head">
+    <h2>{heading}</h2>
+    {intro && <p>{intro}</p>}
+  </div>
+  <div class="fields">
+    <label for={id('name')}>Name<input id={id('name')} name="name" autocomplete="name" required /></label>
+    <label for={id('email')}>Email<input id={id('email')} name="email" type="email" autocomplete="email" required /></label>
+    <label for={id('phone')}>Phone <span>(optional)</span><input id={id('phone')} name="phone" type="tel" autocomplete="tel" /></label>
+    {options && (
+      <label for={id('interest')}>Looking for
+        <select id={id('interest')} name="interest">
+          {options.map((o) => <option>{o}</option>)}
+        </select>
+      </label>
+    )}
+    <label class="wide" for={id('message')}>{options ? 'Anything else we should know?' : 'Message'}
+      <textarea id={id('message')} name="message" rows="4" required={!options}></textarea>
+    </label>
+  </div>
+  <button class="btn" type="submit">{options ? 'Join the wait list' : 'Send message'}</button>
+</form>
+
+<style>
+  .form { display: grid; gap: 1.2rem; max-width: 46rem; }
+  .head h2 { font-size: var(--step-2); }
+  .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem 1rem; }
+  .wide { grid-column: 1 / -1; }
+  label { display: grid; gap: 0.3rem; font-family: var(--font-label); font-weight: 600; font-size: 0.95rem; }
+  label span { font-weight: 400; color: var(--muted); }
+  input, select, textarea {
+    font: inherit; font-family: var(--font-text); font-weight: 400; font-size: 1rem; color: var(--ink);
+    background: var(--card); border: 1px solid #b5bfae; border-radius: 6px; padding: 0.6rem 0.7rem; width: 100%;
+  }
+  .btn { justify-self: start; }
+  @media (max-width: 560px) { .fields { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,150 @@
+[
+  {
+    "id": "daisy", "name": "Daisy", "species": "cattle", "role": "milk_cow", "saleStatus": "not_for_sale",
+    "breed": "Irish Jersey", "born": "2013-07-01", "color": "Red brindle (carries dun)", "height": "44 in",
+    "genetics": "A1/A1 · Heterozygous polled · Chondro/PHA negative", "milk": "2 gal on once-daily milking",
+    "summary": "Our favorite cow on the whole farm! Daisy is a wonderful mother and a great milk cow, with lovely udder conformation.",
+    "photo": { "src": "../assets/photos/daisy.jpg", "alt": "Daisy, a red brindle cow, standing in tall grass and wildflowers" }
+  },
+  {
+    "id": "ginger", "name": "Ginger", "species": "cattle", "role": "milk_cow", "saleStatus": "not_for_sale",
+    "breed": "87.5% Dexter, 12.5% Standard Jersey", "born": "2014-06-01", "color": "Black (carries red and dun)", "height": "43 in",
+    "genetics": "A1/A2 · Dehorned · Chondro/PHA negative", "milk": "2 gal on once-daily milking",
+    "summary": "A great cow and our best milk cow on the farm, with great udder conformation. Sired by DD's MacIntosh (ADCA #024621).",
+    "photo": { "src": "../assets/photos/ginger.jpg", "alt": "Ginger, a black cow, grazing on pasture" }
+  },
+  {
+    "id": "licorice", "name": "Licorice", "species": "cattle", "role": "brood_cow", "saleStatus": "not_for_sale",
+    "breed": "Lowline / Aberdeen Angus", "born": "2013-04-01", "color": "Black", "height": "41 in",
+    "genetics": "A2/A2 · Homozygous polled · Chondro/PHA negative",
+    "summary": "A great brood cow and mother on the farm.",
+    "photo": { "src": "../assets/photos/licorice.jpg", "alt": "Licorice, a black Lowline Angus cow, standing in a pasture" }
+  },
+  {
+    "id": "pumpkin", "name": "Pumpkin", "species": "cattle", "role": "milk_cow", "saleStatus": "not_for_sale",
+    "breed": "81.25% Mini Jersey", "born": "2019-08-28", "color": "Red",
+    "genetics": "A2/A2 · Dehorned · Chondro/PHA negative",
+    "summary": "A beautifully small mini cow out of Clove, by Jewel's Little General via AI. Her first calf, a bull by Branch, arrived in January 2021.",
+    "photo": { "src": "../assets/photos/pumpkin.jpg", "alt": "Pumpkin, a small red cow, standing in tall grass under a cloudy sky" }
+  },
+  {
+    "id": "primrose", "name": "Primrose", "species": "cattle", "role": "milk_cow", "saleStatus": "not_for_sale",
+    "breed": "75% Mini Jersey, 25% Dexter", "born": "2017-09-13", "color": "Almond and white (carries red)",
+    "genetics": "A1/A2 · Dehorned · Chondro/PHA negative",
+    "summary": "A lovely cow out of Thyme, by South House Just My Luck via AI. She will be sticking around!",
+    "photo": { "src": "../assets/photos/primrose.jpg", "alt": "Primrose, a white cow with black speckles, in the barn with her calf" }
+  },
+  {
+    "id": "sassafras", "name": "Sassafras", "species": "cattle", "role": "milk_cow", "saleStatus": "not_for_sale",
+    "breed": "Irish Jersey", "born": "2021-05-13", "color": "Red brindle", "height": "40 in",
+    "genetics": "A1/A2 · Chondro/PHA negative",
+    "summary": "One of the younger milk cows on our farm, and a sweet one. Out of Ginger, by our bull Quince.",
+    "photo": { "src": "../assets/photos/sassafras.jpg", "alt": "Sassafras, a red brindle cow, with a mouthful of grass" }
+  },
+  {
+    "id": "peanut", "name": "Peanut", "species": "cattle", "role": "milk_cow", "saleStatus": "not_for_sale",
+    "breed": "75% Mini Jersey, 25% Dexter", "born": "2021-03-01", "color": "Red brindle", "height": "40 in",
+    "genetics": "A1/A2 · Chondro/PHA negative",
+    "summary": "Another youngster in the milking line-up. Out of Daisy, by our bull Quince.",
+    "photo": { "src": "../assets/photos/peanut.jpg", "alt": "Peanut, a shaggy red brindle cow, lying in a grassy field" }
+  },
+  {
+    "id": "fern", "name": "Fern", "species": "cattle", "role": "brood_cow", "saleStatus": "not_for_sale",
+    "breed": "½ Lowline, ½ Mini Jersey", "born": "2020-03-05", "color": "Black (carries red)", "height": "38 in",
+    "genetics": "A2/A2 · Polled · Chondro/PHA negative",
+    "summary": "Our second-smallest cow, super friendly, and a great brood cow and mother. By Quince, out of our Lowline cow Licorice.",
+    "photo": { "src": "../assets/photos/fern.jpg", "alt": "Fern, a small black cow, standing in a fenced pasture" }
+  },
+  {
+    "id": "lavendar", "name": "Lavendar", "species": "cattle", "role": "milk_cow", "saleStatus": "not_for_sale",
+    "breed": "62.5% Mini Jersey, 25% Lowline, 12.5% Dexter", "born": "2021-07-17", "color": "Almond and white", "height": "39 in",
+    "genetics": "A2/A2 · Polled · Chondro/PHA negative",
+    "summary": "One of our smallest cows, and a sweet little milk cow. Out of Sage, by Buckwheat.",
+    "photo": { "src": "../assets/photos/lavendar.jpg", "alt": "Lavendar, a white cow with black speckles, standing in a pasture" }
+  },
+  {
+    "id": "maple", "name": "Maple", "species": "cattle", "role": "herd_sire", "saleStatus": "not_for_sale",
+    "breed": "75% Mini Jersey, 25% Dexter", "born": "2017-07-31", "color": "Red (carries dun)",
+    "genetics": "A1/A2 · Dehorned · Chondro/PHA negative",
+    "summary": "Out of Violet, by Jewel's Little General via AI.",
+    "photo": { "src": "../assets/photos/maple.jpg", "alt": "Maple as a young red calf, lying in hay in the barn" }
+  },
+  {
+    "id": "birch", "name": "Birch", "species": "cattle", "role": "herd_sire", "saleStatus": "not_for_sale",
+    "breed": "37.5% Mini Jersey, 37.5% Dexter, 25% Lowline Angus", "born": "2017-07-25", "color": "Almond and white (carries dun)",
+    "genetics": "A1/A2 · Heterozygous polled · Chondro/PHA negative",
+    "summary": "Out of Sweet Pea and Dill.",
+    "photo": { "src": "../assets/photos/birch.jpg", "alt": "Two young calves, one red and one white, resting together in the hay" }
+  },
+  {
+    "id": "paprika", "name": "Paprika", "species": "cattle", "role": "herd_sire", "saleStatus": "not_for_sale",
+    "breed": "Dexter", "born": "2016-08-27", "color": "Red",
+    "genetics": "A2/A2 · Horned · Chondro/PHA negative",
+    "summary": "Sired by FF Freedom's Red Cedar (ADCA #029788).",
+    "photo": { "src": "../assets/photos/paprika.jpg", "alt": "Paprika, a red Dexter bull, lying in the grass under an apple tree" }
+  },
+  {
+    "id": "ash", "name": "Ash", "species": "cattle", "role": "herd_sire", "saleStatus": "not_for_sale",
+    "breed": "50% Lowline Angus, 50% Dexter", "born": "2016-06-16", "color": "Black (carries dun)",
+    "genetics": "A2/A2 · Heterozygous polled · Chondro/PHA negative",
+    "summary": "Out of our cow Licorice and bull Chili Pepper.",
+    "photo": { "src": "../assets/photos/ash.jpg", "alt": "Ash, a young black bull with a collar, standing in a fall pasture" }
+  },
+  {
+    "id": "dill", "name": "Dill", "species": "cattle", "role": "herd_sire", "saleStatus": "not_for_sale",
+    "breed": "Irish Jersey", "color": "Almond and white (carries dun)",
+    "genetics": "A1/A2 · Heterozygous polled · Chondro/PHA negative",
+    "summary": "Sire to some of our 2017 calves.",
+    "photo": { "src": "../assets/photos/dill.jpg", "alt": "Dill, a white bull with black speckles, grazing" }
+  },
+  {
+    "id": "chili-pepper", "name": "Chili Pepper", "species": "cattle", "role": "herd_sire", "saleStatus": "not_for_sale",
+    "breed": "Registered Dexter (ADCA #035451)", "born": "2014-04-14", "color": "Dun",
+    "genetics": "A1/A2 · Dehorned · Chondro/PHA negative",
+    "summary": "Sire to our 2016 calves.",
+    "photo": { "src": "../assets/photos/chili-pepper.jpg", "alt": "Chili Pepper, a dun Dexter bull, grazing in a pasture" }
+  },
+  {
+    "id": "zoomer", "name": "Zoomer", "species": "cattle", "role": "herd_sire", "saleStatus": "not_for_sale",
+    "breed": "Irish Jersey", "color": "Almond and white",
+    "genetics": "A1/A2 · Chondro/PHA negative",
+    "summary": "Sire to Jasmine and our 2015 calves.",
+    "photo": { "src": "../assets/photos/zoomer.jpg", "alt": "Zoomer, a white bull with black speckles and dark ears, lying down" }
+  },
+  {
+    "id": "matilda", "name": "Matilda", "species": "pig", "role": "sow", "saleStatus": "not_for_sale",
+    "breed": "Idaho Pasture Pig · Fate line", "born": "2017-01-02", "color": "Tri-color",
+    "summary": "A wonderful sow we picked up in Ohio. She is robustly built and has very consistent litters: six so far, of 7 to 11 piglets each.",
+    "photo": { "src": "../assets/photos/matilda.jpg", "alt": "Matilda, a large black sow with white markings, grazing on green grass" }
+  },
+  {
+    "id": "maisel", "name": "Maisel", "species": "pig", "role": "sow", "saleStatus": "not_for_sale",
+    "breed": "Idaho Pasture Pig · Destiny line", "born": "2018-03-26", "color": "Tri-color",
+    "summary": "A super sweet sow we got as an adult from Vermont. She has a very relaxed demeanor, is a great mother, and has had very consistent litters for us.",
+    "photo": { "src": "../assets/photos/maisel.jpg", "alt": "Maisel, a black and white sow, standing in hay" }
+  },
+  {
+    "id": "gertie", "name": "Gertie", "species": "pig", "role": "sow", "saleStatus": "not_for_sale",
+    "breed": "Idaho Pasture Pig · Heart line", "born": "2020-09-18", "color": "Tri-color",
+    "summary": "From White Bison Farm in Wisconsin, to add another line to our farm. She farrowed her first litter in the fall of 2021.",
+    "photo": { "src": "../assets/photos/gertie.jpg", "alt": "Gertie, a black pig with a red ear tag, getting a scratch behind the ears" }
+  },
+  {
+    "id": "gladys", "name": "Gladys", "species": "pig", "role": "sow", "saleStatus": "not_for_sale",
+    "breed": "Idaho Pasture Pig · Diana line", "born": "2020-09-23", "color": "Tri-color",
+    "summary": "Also from White Bison Farm in Wisconsin. Her first litter, in the fall of 2021, was 10 piglets.",
+    "photo": { "src": "../assets/photos/gladys.jpg", "alt": "Close-up of Gladys, a black and white pig with a pink ear tag, in the barn" }
+  },
+  {
+    "id": "pumba", "name": "Pumba", "species": "pig", "role": "boar", "saleStatus": "not_for_sale",
+    "breed": "Idaho Pasture Pig · Bandit line", "born": "2017-10-28", "color": "Tri-color",
+    "summary": "A fantastically built boar from Mouse Creek Farm in Pennsylvania, with a nice wide face and a short, upturned nose. He has sired some wonderful litters on the farm.",
+    "photo": { "src": "../assets/photos/pumba.jpg", "alt": "Pumba, a black boar with white markings, standing on grass" }
+  },
+  {
+    "id": "stilwell", "name": "Stilwell", "species": "pig", "role": "boar", "saleStatus": "not_for_sale",
+    "breed": "Idaho Pasture Pig · Rex line", "born": "2020-11-11", "color": "Ginger",
+    "summary": "A young ginger boar we brought to the farm from New York. The first litters he sired were born in the fall of 2021.",
+    "photo": { "src": "../assets/photos/stilwell.jpg", "alt": "Stilwell, a pale ginger boar, standing by a tree in the woods" }
+  }
+]

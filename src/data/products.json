@@ -1,0 +1,33 @@
+[
+  { "id": "raw-milk-half-gallon", "name": "Raw milk, ½ gallon", "category": "dairy", "priceNote": "In a glass jar (jar deposit)", "availability": "limited", "availabilityNote": "Call ahead and we'll label yours in the farm fridge" },
+  { "id": "raw-milk-quart", "name": "Raw milk, quart", "category": "dairy", "priceNote": "In a glass jar (jar deposit)", "availability": "limited" },
+  { "id": "yogurt-plain", "name": "Plain yogurt, quart", "category": "dairy", "availability": "in_stock" },
+  { "id": "yogurt-flavored", "name": "Maple, lemon, coffee, or vanilla yogurt, quart", "category": "dairy", "priceNote": "Lightly sweetened with Courser Farm maple syrup", "availability": "in_stock" },
+  { "id": "eggs-dozen", "name": "Free-range eggs, dozen", "category": "eggs", "availability": "in_stock" },
+
+  { "id": "beef-ground", "name": "Ground beef", "category": "beef", "availability": "in_stock" },
+  { "id": "beef-steaks", "name": "Steaks: rib, NY strip, sirloin, filet", "category": "beef", "availability": "in_stock" },
+  { "id": "beef-tips-kabobs", "name": "Steak tips, kabobs, and stew meat", "category": "beef", "availability": "in_stock" },
+  { "id": "beef-roasts", "name": "Roasts: chuck, top round, round tip", "category": "beef", "availability": "in_stock" },
+  { "id": "beef-ribs-shank", "name": "Short ribs, shank, and oxtail", "category": "beef", "availability": "in_stock" },
+  { "id": "beef-bones", "name": "Soup bones", "category": "beef", "availability": "in_stock" },
+
+  { "id": "pork-bacon", "name": "Bacon, nitrate/nitrite free", "category": "pork", "availability": "in_stock" },
+  { "id": "pork-chops", "name": "Pork and rib chops, bone-in or boneless", "category": "pork", "availability": "in_stock" },
+  { "id": "pork-ham", "name": "Maple-cured ham roasts and steaks", "category": "pork", "availability": "in_stock" },
+  { "id": "pork-sausage", "name": "Sausage: sweet Italian, breakfast, hot Italian, chorizo", "category": "pork", "priceNote": "Links or ground", "availability": "in_stock" },
+  { "id": "pork-roasts", "name": "Shoulder, loin, and tenderloin", "category": "pork", "availability": "in_stock" },
+  { "id": "pork-ribs", "name": "Spare ribs and baby back ribs", "category": "pork", "availability": "in_stock" },
+
+  { "id": "chicken-whole", "name": "Whole broilers", "category": "poultry", "priceNote": "About 4–6 lb", "availability": "in_stock" },
+  { "id": "chicken-parts", "name": "Breasts, leg/thighs, and wings", "category": "poultry", "availability": "in_stock" },
+
+  { "id": "maple-syrup", "name": "Courser Farm maple syrup", "category": "maple", "priceNote": "½ pint to ½ gallon", "availability": "in_stock" },
+
+  { "id": "beef-share", "name": "Whole or half beef share", "category": "shares", "priceNote": "Priced by hanging weight. $100 deposit reserves your share.", "availability": "reserve_only", "availabilityNote": "Call or email to reserve for the fall" },
+  { "id": "fresh-broilers", "name": "Fresh broilers on processing days", "category": "shares", "priceNote": "10% off when you reserve", "availability": "seasonal", "availabilityNote": "A few weekends from late June to October" },
+
+  { "id": "piglet-feeder", "name": "Feeder pig (unregistered)", "category": "piglets", "price": 150, "unit": "each", "priceNote": "3 or more for $125 each", "availability": "reserve_only", "availabilityNote": "Spring/Summer 2026 litters" },
+  { "id": "piglet-gilt", "name": "Registered breeding gilt", "category": "piglets", "price": 500, "unit": "each", "availability": "reserve_only" },
+  { "id": "piglet-boar", "name": "Registered breeding boar", "category": "piglets", "price": 400, "unit": "each", "availability": "reserve_only" }
+]

@@ -2,7 +2,8 @@
 # Netlify only applies these when no file exists at the old path.
 
 # Pages
-/mini-cows/  /mini-oxen/  301
+/mini-cows/  /guides/mini-oxen/  301
+/eggs/  /farm-store/  301
 /terms-conditions/  /  301
 /online-store/  /farm-store/  301
 /products-list/  /farm-store/  301
@@ -219,7 +220,7 @@
 /coursermeadowslogo_color_border-sm/  /  301
 /coursermeadowslogo_color_border/  /  301
 /cropped-cropped-coursermeadowslogo-png/  /  301
-/mini-cows/team/  /mini-oxen/  301
+/mini-cows/team/  /guides/mini-oxen/  301
 /meet-the-herd/herd3-2/  /meet-the-herd/  301
 /meet-the-herd/herd4/  /meet-the-herd/  301
 /meet-the-herd/herd2/  /meet-the-herd/  301
