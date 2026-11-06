@@ -30,7 +30,8 @@ const id = (name: string) => `${form}-${name}`;
     <label for={id('phone')}>Phone <span>(optional)</span><input id={id('phone')} name="phone" type="tel" autocomplete="tel" /></label>
     {options && (
       <label for={id('interest')}>Looking for
-        <select id={id('interest')} name="interest">
+        <select id={id('interest')} name="interest" required>
+          <option value="" disabled selected>Choose one</option>
           {options.map((o) => <option>{o}</option>)}
         </select>
       </label>

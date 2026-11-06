@@ -25,6 +25,10 @@ const rows = [
   ['Genetics', animal.genetics],
 ].filter(([, v]) => v) as [string, string][];
 const status = STATUS[animal.saleStatus];
+const price =
+  animal.saleStatus === 'available' && animal.price !== undefined
+    ? animal.price.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
+    : undefined;
 ---
 
 <article class="card">
@@ -38,7 +42,7 @@ const status = STATUS[animal.saleStatus];
     <dl class="data">
       {rows.map(([k, v]) => (<><dt>{k}</dt><dd>{v}</dd></>))}
     </dl>
-    {animal.saleStatus === 'available' && animal.price && <p class="price">${animal.price}</p>}
+    {price && <p class="price">{price}</p>}
   </div>
 </article>
 

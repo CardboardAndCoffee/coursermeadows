@@ -22,7 +22,7 @@ const CATEGORY: Record<string, string> = { pigs: 'Pigs', cattle: 'Cattle', oxen:
 const updated = guide.data.updatedAt.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
 ---
 
-<Base title={guide.data.title} description={guide.data.summary}>
+<Base title={guide.data.title} description={guide.data.summary} image={guide.data.hero.src}>
   <PhotoHero photo={guide.data.hero} kicker={`Guide · ${CATEGORY[guide.data.category]}`} title={guide.data.title} lede={guide.data.summary} />
 
   <div class="wrap layout">

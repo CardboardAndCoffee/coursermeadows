@@ -9,7 +9,12 @@ const { products, heading } = Astro.props;
 const AVAILABILITY: Record<string, string> = {
   in_stock: 'In stock', limited: 'Limited', sold_out: 'Sold out', seasonal: 'Seasonal', reserve_only: 'By reservation',
 };
-const money = (n: number) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
+const money = (n: number) =>
+  n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: Number.isInteger(n) ? 0 : 2 });
+// Sold out and limited always show, even next to a price. The softer ones
+// (seasonal, by reservation) only stand in when there's no price.
+const showStatus = (p: CollectionEntry<'products'>['data']) =>
+  p.availability === 'sold_out' || p.availability === 'limited' || (p.price === undefined && p.availability !== 'in_stock');
 ---
 
 <div class="list">
@@ -23,10 +28,11 @@ const money = (n: number) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`
             <span class="note">{[p.priceNote, p.availabilityNote].filter(Boolean).join(' · ')}</span>
           )}
         </div>
-        {p.price !== undefined ? (
-          <span class="price">{money(p.price)}{p.unit && p.unit !== 'each' ? ` /${p.unit}` : ''}</span>
-        ) : (
-          p.availability !== 'in_stock' && <span class="status">{AVAILABILITY[p.availability]}</span>
+        {(p.price !== undefined || showStatus(p)) && (
+          <div class="right">
+            {p.price !== undefined && <span class="price">{money(p.price)}{p.unit && p.unit !== 'each' ? ` /${p.unit}` : ''}</span>}
+            {showStatus(p) && <span class="status">{AVAILABILITY[p.availability]}</span>}
+          </div>
         )}
       </li>
     ))}
@@ -41,6 +47,7 @@ const money = (n: number) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`
   .what { display: grid; min-width: 0; }
   .name { font-size: 1.02rem; }
   .note { font-family: var(--font-label); font-size: 0.85rem; color: var(--muted); }
+  .right { display: grid; justify-items: end; gap: 0.1rem; }
   .price { font-family: var(--font-data); font-size: 0.95rem; white-space: nowrap; }
   .status { font-family: var(--font-data); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); white-space: nowrap; }
   li.sold_out .name { color: var(--muted); text-decoration: line-through; }

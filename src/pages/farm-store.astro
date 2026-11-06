@@ -4,7 +4,7 @@ import PageIntro from '../components/PageIntro.astro';
 import ProductList from '../components/ProductList.astro';
 import CallBand from '../components/CallBand.astro';
 import { getProducts, getSiteSettings } from '../lib/content';
-import { describeHours } from '../lib/store-status';
+import { describeHoursInline } from '../lib/store-status';
 import ginger from '../assets/photos/ginger.jpg';
 
 const s = await getSiteSettings();
@@ -21,7 +21,7 @@ const anyPrices = groups.some((g) => g.items.some((i) => i.data.price !== undefi
 
 <Base title="Farm Store" description="The Courser Meadows farm store in Warner, NH: raw milk, yogurt, free-range eggs, grass-fed beef, pastured pork and chicken, and maple syrup. Open daily.">
   <PageIntro
-    kicker={`Open ${describeHours(s.hours).join(', ').toLowerCase()}`}
+    kicker={`Open ${describeHoursInline(s.hours)}`}
     title="The farm store"
     lede={`Stop by ${s.address.street} in ${s.address.town} and browse. If you want a certain amount of something, call or email and we'll have it boxed and ready for you.`}
     photo={{ src: ginger, alt: 'Ginger, one of our milk cows, grazing on pasture' }}

@@ -69,6 +69,8 @@ img { max-width: 100%; height: auto; display: block; }
 a { color: var(--green); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
 a:hover { text-decoration-thickness: 2px; }
 :focus-visible { outline: 3px solid var(--brindle); outline-offset: 2px; }
+/* Jump links (#waitlist etc.) land clear of the sticky status bar. */
+[id] { scroll-margin-top: 3.5rem; }
 
 h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height: 1.1; color: var(--green); text-wrap: balance; margin: 0; }
 h1 { font-size: var(--step-4); }

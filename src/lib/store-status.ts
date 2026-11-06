@@ -28,9 +28,8 @@ const LOOKAHEAD_DAYS = 14;
 export function getStoreStatus(settings: HoursSettings, now: Date): StoreStatus {
   const local = localParts(now, settings.timeZone);
 
-  const overrideActive =
-    settings.statusOverride !== 'auto' &&
-    (!settings.overrideUntil || now < new Date(settings.overrideUntil));
+  const until = settings.overrideUntil ? parseInstant(settings.overrideUntil) : undefined;
+  const overrideActive = settings.statusOverride !== 'auto' && (!until || now < until);
 
   if (overrideActive && settings.statusOverride === 'open') {
     return {
@@ -45,7 +44,11 @@ export function getStoreStatus(settings: HoursSettings, now: Date): StoreStatus 
       isOpen: false,
       reason: 'override',
       headline: 'Closed',
-      detail: settings.overrideMessage || nextOpenDetail(settings, local, { skipToday: true }),
+      // With an end time, the store reopens at the first opening from then on.
+      // Without one, treat it as closed for the rest of today.
+      detail:
+        settings.overrideMessage ||
+        nextOpenDetail(settings, local, until ? localParts(until, settings.timeZone) : { date: addDays(local.date, 1), minutes: -1 }),
     };
   }
 
@@ -64,6 +67,13 @@ export function getStoreStatus(settings: HoursSettings, now: Date): StoreStatus 
 /** Human summary of the weekly hours, e.g. "Every day 9 am – 7 pm". */
 export function describeHours(hours: SiteSettings['hours']): string[] {
   return hours.map((row) => `${describeDays(row.days)} ${formatTime(row.opens)} – ${formatTime(row.closes)}`);
+}
+
+/** The hours as one phrase to use mid-sentence, e.g. "every day 9 am – 7 pm" or "Mon–Fri 9 am – 5 pm, Sat 8 am – 12 pm". */
+export function describeHoursInline(hours: SiteSettings['hours']): string {
+  return describeHours(hours)
+    .map((line) => line.replace(/^Every day/, 'every day'))
+    .join(', ');
 }
 
 // ---------------------------------------------------------------------------
@@ -92,6 +102,25 @@ function weekdayOf(date: string): Weekday {
   return WEEKDAYS[new Date(`${date}T00:00:00Z`).getUTCDay()];
 }
 
+/**
+ * Reads the override end time. Storyblok saves date-times as "YYYY-MM-DD HH:mm"
+ * in UTC with no zone, which `new Date` would read as the visitor's local time
+ * (or reject, in some browsers).
+ */
+function parseInstant(value: string): Date {
+  const storyblok = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(value);
+  return new Date(storyblok ? `${value.replace(' ', 'T')}:00Z` : value);
+}
+
+/** "2026-11-26" from a plain date or a date-time like Storyblok's "2026-11-26 00:00". */
+function dayOf(value: string): string {
+  return value.slice(0, 10);
+}
+
+function daysBetween(from: string, to: string): number {
+  return Math.round((Date.parse(`${to}T00:00:00Z`) - Date.parse(`${from}T00:00:00Z`)) / 86_400_000);
+}
+
 function addDays(date: string, days: number): string {
   const d = new Date(`${date}T00:00:00Z`);
   d.setUTCDate(d.getUTCDate() + days);
@@ -104,7 +133,7 @@ function toMinutes(time: ClockTime): number {
 }
 
 function closureOn(settings: HoursSettings, date: string) {
-  return settings.closures.find((c) => c.from <= date && date <= c.to);
+  return settings.closures.find((c) => dayOf(c.from) <= date && date <= dayOf(c.to));
 }
 
 function openRowAt(settings: HoursSettings, weekday: Weekday, minutes: number) {
@@ -118,26 +147,43 @@ function todaysCloseDetail(settings: HoursSettings, local: LocalParts): string |
   return row ? `until ${formatTime(row.closes)}` : undefined;
 }
 
-/** "opens at 9 am", "opens tomorrow at 9 am", "opens Thursday at 9 am". */
-function nextOpenDetail(settings: HoursSettings, local: LocalParts, opts: { skipToday?: boolean } = {}): string {
-  for (let offset = opts.skipToday ? 1 : 0; offset <= LOOKAHEAD_DAYS; offset++) {
-    const date = addDays(local.date, offset);
+/**
+ * "opens at 9 am", "opens tomorrow at 9 am", "opens Thursday at 9 am".
+ * Looks for the first opening at or after `from` (default: now); the wording
+ * is relative to `today`.
+ */
+function nextOpenDetail(
+  settings: HoursSettings,
+  today: LocalParts,
+  from: { date: string; minutes: number } = today,
+): string {
+  const start = daysBetween(today.date, from.date);
+  for (let offset = start; offset <= start + LOOKAHEAD_DAYS; offset++) {
+    const date = addDays(today.date, offset);
     if (closureOn(settings, date)) continue;
     const weekday = weekdayOf(date);
-    const opening = settings.hours
-      .filter((row) => row.days.includes(weekday))
-      .map((row) => row.opens)
-      .filter((opens) => offset > 0 || toMinutes(opens) > local.minutes)
-      .sort((a, b) => toMinutes(a) - toMinutes(b))[0];
-    if (!opening) continue;
+    const after = offset === start ? from.minutes : -1;
+    // An override can end partway through opening hours: the store reopens right then.
+    const reopensMidway = offset === start && openRowAt(settings, weekday, after) ? after : undefined;
+    const opening =
+      reopensMidway ??
+      settings.hours
+        .filter((row) => row.days.includes(weekday))
+        .map((row) => toMinutes(row.opens))
+        .filter((opens) => opens >= after)
+        .sort((a, b) => a - b)[0];
+    if (opening === undefined) continue;
     const when = offset === 0 ? '' : offset === 1 ? 'tomorrow ' : `${DAY_NAMES[weekday]} `;
-    return `opens ${when}at ${formatTime(opening)}`;
+    return `opens ${when}at ${formatMinutes(opening)}`;
   }
   return 'call ahead for hours';
 }
 
 export function formatTime(time: ClockTime): string {
-  const minutes = toMinutes(time);
+  return formatMinutes(toMinutes(time));
+}
+
+function formatMinutes(minutes: number): string {
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;
   const suffix = h < 12 ? 'am' : 'pm';

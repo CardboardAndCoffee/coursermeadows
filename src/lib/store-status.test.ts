@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { describeHours, formatTime, getStoreStatus } from './store-status';
+import { describeHours, describeHoursInline, formatTime, getStoreStatus } from './store-status';
 import type { SiteSettings } from './content/types';
 
 type Settings = Parameters<typeof getStoreStatus>[0];
@@ -83,6 +83,15 @@ describe('getStoreStatus — closures', () => {
   it('skips closure days when saying when it next opens', () => {
     expect(getStoreStatus(thanksgiving, at('2026-11-25T20:00')).detail).toBe('opens Friday at 9 am');
   });
+
+  it('reads closure dates in the CMS date-time format', () => {
+    const cms: Settings = {
+      ...base,
+      closures: [{ from: '2026-11-26 00:00', to: '2026-11-26 00:00', label: 'Closed for Thanksgiving' }],
+    };
+    expect(getStoreStatus(cms, at('2026-11-26T12:00')).reason).toBe('closure');
+    expect(getStoreStatus(cms, at('2026-11-27T12:00')).isOpen).toBe(true);
+  });
 });
 
 describe('getStoreStatus — editor override', () => {
@@ -110,6 +119,23 @@ describe('getStoreStatus — editor override', () => {
     expect(getStoreStatus(settings, at('2026-11-05T11:59')).isOpen).toBe(false);
     expect(getStoreStatus(settings, at('2026-11-05T12:00')).isOpen).toBe(true);
   });
+
+  it('reads the CMS end time as UTC', () => {
+    // Storyblok "2026-11-05 17:00" is 17:00 UTC, noon in New York.
+    const settings: Settings = { ...base, statusOverride: 'closed', overrideUntil: '2026-11-05 17:00' };
+    expect(getStoreStatus(settings, at('2026-11-05T11:59')).isOpen).toBe(false);
+    expect(getStoreStatus(settings, at('2026-11-05T12:00')).isOpen).toBe(true);
+  });
+
+  it('forced closed with an end time says when it reopens', () => {
+    const closed = (until: string) => ({ ...base, statusOverride: 'closed' as const, overrideUntil: until });
+    // Ends during opening hours: reopens right then.
+    expect(getStoreStatus(closed('2026-11-05T12:00:00-05:00'), at('2026-11-05T10:00')).detail).toBe('opens at 12 pm');
+    // Ends tomorrow afternoon.
+    expect(getStoreStatus(closed('2026-11-06T15:00:00-05:00'), at('2026-11-05T10:00')).detail).toBe('opens tomorrow at 3 pm');
+    // Ends after closing time: next morning.
+    expect(getStoreStatus(closed('2026-11-05T20:00:00-05:00'), at('2026-11-05T10:00')).detail).toBe('opens tomorrow at 9 am');
+  });
 });
 
 describe('formatting', () => {
@@ -127,5 +153,15 @@ describe('formatting', () => {
     ];
     expect(describeHours(hours)).toEqual(['Mon–Fri 9 am – 7 pm', 'Sat, Sun 8 am – 12 pm']);
     expect(describeHours(base.hours)).toEqual(['Every day 9 am – 7 pm']);
+  });
+
+  it('describes the hours mid-sentence without lowercasing day names', () => {
+    expect(describeHoursInline(base.hours)).toBe('every day 9 am – 7 pm');
+    expect(
+      describeHoursInline([
+        { days: ['mon', 'tue', 'wed', 'thu', 'fri'], opens: '09:00', closes: '17:00' },
+        { days: ['sat'], opens: '08:00', closes: '12:00' },
+      ]),
+    ).toBe('Mon–Fri 9 am – 5 pm, Sat 8 am – 12 pm');
   });
 });

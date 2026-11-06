@@ -1,13 +1,13 @@
 ---
 // "Visit the farm store" band near the bottom of most pages.
 import { getSiteSettings } from '../lib/content';
-import { describeHours } from '../lib/store-status';
+import { describeHoursInline } from '../lib/store-status';
 
 interface Props { heading?: string; text?: string }
 const s = await getSiteSettings();
 const {
   heading = 'Visit the farm store',
-  text = `Raw milk and yogurt, free-range eggs, grass-fed beef, pastured pork and chicken, and maple syrup. Open ${describeHours(s.hours).join(', ').toLowerCase()} at ${s.address.street}, ${s.address.town}.`,
+  text = `Raw milk and yogurt, free-range eggs, grass-fed beef, pastured pork and chicken, and maple syrup. Open ${describeHoursInline(s.hours)} at ${s.address.street}, ${s.address.town}.`,
 } = Astro.props;
 const tel = s.phone.replace(/[^\d+]/g, '');
 ---
