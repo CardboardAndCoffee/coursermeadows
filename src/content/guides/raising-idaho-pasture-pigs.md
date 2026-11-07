@@ -84,4 +84,4 @@ We always split it into two feedings, half in the morning and half in the evenin
 
 And let's not forget the most important part of a pig's diet (or anyone's, for that matter): water. They need access to it at all times.
 
-There are lots of watering systems out there. We use rubber tubs and have good luck with them, although sometimes we need to secure them so they don't get tipped over, or set them inside heavy wooden boxes the pigs can't flip. We haven't had good luck with de-icers, so on winter days we fill the tubs at least three times a day to be sure the pigs always have water, even in freezing temperatures.
+There are many different options for watering systems (just google it and you'll find many!). We use rubber tubs and have good luck with them, although sometimes we need to secure them so they don't get tipped over, or set them inside heavy wooden boxes the pigs can't flip. We haven't had good luck with de-icers, so on winter days we fill the tubs at least three times a day to be sure the pigs always have water, even in freezing temperatures.

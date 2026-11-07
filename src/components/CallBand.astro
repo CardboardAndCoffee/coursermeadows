@@ -7,7 +7,7 @@ interface Props { heading?: string; text?: string }
 const s = await getSiteSettings();
 const {
   heading = 'Visit the farm store',
-  text = `Raw milk and yogurt, free-range eggs, grass-fed beef, pastured pork and chicken, and maple syrup. Open ${describeHoursInline(s.hours)} at ${s.address.street}, ${s.address.town}.`,
+  text = `We're open ${describeHoursInline(s.hours)} at ${s.address.street}, ${s.address.town}. If you have a certain amount of product you want, let us know and we can have it boxed and ready for you, otherwise stop by and browse our selection!`,
 } = Astro.props;
 const tel = s.phone.replace(/[^\d+]/g, '');
 ---

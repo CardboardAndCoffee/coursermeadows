@@ -15,18 +15,21 @@ const boars = await getAnimals({ species: 'pig', roles: ['boar'] });
     photo={{ src: hero, alt: 'Two Idaho Pasture Pigs grazing in lush grass behind a low electric fence' }}
     kicker="Our pigs"
     title="Idaho Pasture Pigs"
-    lede="A pig that grazes instead of rooting, raised on grass with unrelated breeding pairs. We sell feeder pigs and registered breeding stock."
+    lede="In addition to raising pork for our customers at Courser Meadows, we also have unrelated breeding pairs that we sell feeder pigs and registered breeding stock from."
   >
     <div class="btn-row"><a class="btn light" href="/idaho-pasture-pigs-for-sale/">Piglets for sale</a><a class="btn ghost" href="/guides/raising-idaho-pasture-pigs/">Read our guide to raising IPPs</a></div>
   </PhotoHero>
 
   <section class="section wrap why">
-    <h2>Why we raise them</h2>
+    <div class="stack">
+      <h2>Why we raise them</h2>
+      <p>At Courser Meadows we choose to raise Idaho Pasture Pigs for a variety of reasons:</p>
+    </div>
     <ul class="reasons">
-      <li><b>They graze.</b> A short, upturned snout means they eat grass instead of rooting up the pasture. That saves pastures and grain, and makes healthier (higher in omega-3s), tastier, more marbled pork.</li>
-      <li><b>Good mothers.</b> Sows are docile, excellent mothers with vigorous, well-growing piglets.</li>
-      <li><b>Easy to keep.</b> Boars mature at 300–400 lb and sows at 250–300 lb, so a breeding pair eats far less over a year than larger breeds. Both have excellent temperaments.</li>
-      <li><b>Ready in under a year.</b> Feeders reach market weight (200–250 lb) at 8 to 10 months.</li>
+      <li><b>They graze.</b> They are great for grass-based farms like ours: because of their shorter, upturned snout, they actually graze on grass instead of rooting up pastures. As well as being better for farms that depend on their pastures and don't want them ruined, it also saves on grain costs as IPPs supplement their diet with grass and hay, AND it makes for a healthier (higher in omega-3s), tastier, and more marbled meat.</li>
+      <li><b>Good mothers.</b> They make excellent, docile mothers and have vigorous, well-growing piglets.</li>
+      <li><b>Easy to keep.</b> Both boars and sows have excellent temperaments, and as the mature weight for boars is 300–400 lbs and 250–300 lbs for sows, it makes having breeding pairs more feasible to care for year round, as their overall consumption will be far lower than larger traditional breeds.</li>
+      <li><b>Ready in under a year.</b> They reach market weight (200–250 lbs) and are ready for processing at 8–10 months.</li>
     </ul>
   </section>
 
@@ -40,7 +43,7 @@ const boars = await getAnimals({ species: 'pig', roles: ['boar'] });
     <AnimalGrid animals={boars} />
   </section>
 
-  <CallBand heading="Looking for piglets?" text="We have Spring/Summer 2026 litters from registered parents, ready early July to early August. Call or email to get on the wait list." />
+  <CallBand heading="Looking for piglets?" text="We have Spring/Summer 2026 litters ready to go early July to early August. All litters are from registered IPP parents. Call or email to let us know what you are looking for and to get on our wait-list." />
 </Base>
 
 <style>

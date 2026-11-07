@@ -24,7 +24,7 @@ const gallery = [
   <PageIntro
     kicker="Livestock for sale"
     title="Idaho Pasture Pigs for sale"
-    lede="We have Spring/Summer 2026 litters, ready to go early July to early August. All litters are from registered IPP parents."
+    lede="We have Spring/Summer 2026 litters here at Courser Meadows, ready to go early July to early August. All litters are from registered IPP parents."
     photo={{ src: p1, alt: 'A litter of red and spotted Idaho Pasture Pig piglets piled together in the hay' }}
   >
     <div class="btn-row"><a class="btn" href="#waitlist">Join the wait list</a><a class="btn alt" href="/idaho-pasture-pigs/">Meet the parents</a></div>
@@ -34,7 +34,7 @@ const gallery = [
     <div class="stack">
       <div class="section-head"><h2>Spring/Summer 2026</h2><span class="pill available">Taking reservations</span></div>
       <ProductList products={prices} />
-      <p class="muted">We'll have a limited number of registered breeding stock, as well as feeders. Email us or use the form below to tell us what you're looking for.</p>
+      <p class="muted">We will have a limited selection of registered breeding stock available as well as feeders. Email us or fill out the form below to let us know what you are looking for and to get on our wait-list.</p>
     </div>
     <div class="stack">
       <div class="section-head"><h2>New to IPPs?</h2></div>
@@ -44,7 +44,7 @@ const gallery = [
   </section>
 
   <section class="section wrap">
-    <div class="section-head"><h2>Piglets from past litters</h2></div>
+    <div class="section-head"><h2>Some of the piglets from past litters</h2></div>
     <div class="gallery">
       {gallery.map((g) => <Image src={g.src} alt={g.alt} widths={[400, 700]} sizes="(max-width: 700px) 50vw, 25vw" />)}
     </div>

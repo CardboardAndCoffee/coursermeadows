@@ -23,8 +23,8 @@ const guides = await getGuides();
   <PhotoHero
     photo={{ src: herd, alt: 'The Courser Meadows herd grazing in a summer pasture at the edge of the woods' }}
     kicker="Warner, New Hampshire"
-    title="Mini cattle and Idaho Pasture Pigs, raised on grass."
-    lede="We raise small-breed cattle for milk, beef, and oxen, and registered Idaho Pasture Pigs. Our farm store sells what we produce."
+    title="Welcome to Courser Meadows!"
+    lede="We are a small, grass-based farm in Warner, NH. In our farm store, we offer 100% grass-fed raw milk and yogurt, free-range eggs, and pasture-raised meats."
   >
     <div class="btn-row">
       <a class="btn light" href="/meet-the-herd/">Meet the herd</a>
@@ -34,22 +34,21 @@ const guides = await getGuides();
 
   <section class="section wrap intro">
     <div class="stack">
-      <p class="kicker">Welcome</p>
       <h2>A small, grass-based farm.</h2>
     </div>
     <div class="stack copy">
-      <p>We raise Idaho Pasture Pigs, broilers, egg layers, and tri-purpose cattle for dairy, beef, and oxen, including Lowline Angus, Miniature Jerseys, and Irish Jerseys.</p>
-      <p>We work to raise our animals in a humane, comfortable environment while producing healthy, delicious, local food for you and your family.</p>
-      <p class="data">Herd tested negative every year for TB, Brucellosis, Johne's, and BLV</p>
+      <p>We raise Idaho Pasture Pigs, broilers, egg layers, and tri-purpose cattle for dairy, beef, and oxen (including Lowline Angus, Miniature Jerseys, and Irish Jerseys).</p>
+      <p>We strive to raise our animals in a humane and comfortable environment while producing healthy, delicious, local products for you and your family.</p>
+      <p class="data">Our entire herd tests negative for TB, Brucellosis, Johne's, and BLV annually</p>
     </div>
   </section>
 
   <section class="section wrap">
-    <div class="section-head"><h2>For sale now</h2><a href="/idaho-pasture-pigs-for-sale/">All livestock for sale →</a></div>
+    <div class="section-head"><h2>For sale now</h2><a href="/idaho-pasture-pigs-for-sale/">Piglets for sale →</a></div>
     <div class="sale">
       <div class="sale-text stack">
         <div class="title-row"><h3>Idaho Pasture Pig piglets</h3><span class="pill available">Taking reservations</span></div>
-        <p>Spring/Summer 2026 litters from registered parents, ready early July to early August.</p>
+        <p>We have Spring/Summer 2026 litters ready to go early July to early August. All litters are from registered IPP parents.</p>
         <ProductList products={pigletPrices} />
         <div class="btn-row"><a class="btn" href="/idaho-pasture-pigs-for-sale/#waitlist">Join the piglet wait list</a></div>
       </div>
@@ -59,7 +58,7 @@ const guides = await getGuides();
       {cattleForSale.length > 0 ? (
         <p><b>Mini cattle:</b> {cattleForSale.length} available now.</p>
       ) : (
-        <p><b>Mini cattle:</b> nothing available right now. Calves are sold weaned and halter-trained. Join the wait list and we'll let you know.</p>
+        <p><b>Mini cattle:</b> We offer calves for sale each year and occasionally have mature cattle available. Nothing is available right now, but get on our wait-list and we'll be in touch.</p>
       )}
       <a class="btn alt" href="/cows-for-sale/">{cattleForSale.length > 0 ? 'See cattle for sale' : 'Join the cattle wait list'}</a>
     </div>

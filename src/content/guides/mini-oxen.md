@@ -9,17 +9,16 @@ updatedAt: 2020-04-15
 legacyPath: /mini-cows/
 order: 2
 ---
+Here at Courser Meadows we are passionate about the art of training cattle to a yoke to be used as working steers and oxen.
 
-Here at Courser Meadows we're passionate about the art of training cattle to a yoke, to be used as working steers and oxen.
-
-Cattle are growing in popularity as pets, and using them for real work, or as a hobby for parades and showing at fairs, is on the rebound.
+Cattle are a species that are growing in popularity as pets, and using them for actual work or as a hobby for parades and showing at fairs is on the rebound.
 
 ## Why mini cattle
 
-Mini cattle make great oxen for a lot of people. They grow large enough for light to medium work, but stay small enough that they're far less expensive to keep than larger breeds like Holsteins or Shorthorns. That means you can keep them around for use and enjoyment much longer without the cost getting out of hand.
+Mini cattle make great oxen for many people since they grow large enough for light to medium work loads, but stay small enough that they are not nearly as expensive to keep as, say, larger breeds such as Holsteins or Shorthorns. Therefore, they can be kept around for use and enjoyment for much longer without being cost prohibitive.
 
-Their small size is also much less intimidating, and they're easy to work around for their whole lives. Dexters can live and work well into their teens!
+Not to mention their small size is much less intimidating to many, and they are easy to work around for their entire lifespan (Dexters can live and work long into their teens!).
 
 ## Getting a team from us
 
-All our calves are sold halter-trained and weaned. Email us if you have questions, or to be put on the wait list for when we have a matched team of calves available.
+Email us if you have any questions or would like to be put on a waiting list for when we have a matched team of calves available. All calves are sold halter trained and weaned.

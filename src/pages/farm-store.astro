@@ -23,7 +23,7 @@ const anyPrices = groups.some((g) => g.items.some((i) => i.data.price !== undefi
   <PageIntro
     kicker={`Open ${describeHoursInline(s.hours)}`}
     title="The farm store"
-    lede={`Stop by ${s.address.street} in ${s.address.town} and browse. If you want a certain amount of something, call or email and we'll have it boxed and ready for you.`}
+    lede={`We're located at ${s.address.street}, ${s.address.town}, ${s.address.state}. If you have a certain amount of product you want, let us know and we can have it boxed and ready for you in the farm store, otherwise stop by and browse our selection!`}
     photo={{ src: ginger, alt: 'Ginger, one of our milk cows, grazing on pasture' }}
   >
     <div class="btn-row"><a class="btn" href={`tel:${s.phone.replace(/[^\d+]/g, '')}`}>Call {s.phone}</a><a class="btn alt" href="/contact/">Directions</a></div>
@@ -45,7 +45,7 @@ const anyPrices = groups.some((g) => g.items.some((i) => i.data.price !== undefi
     </div>
   </section>
 
-  <CallBand heading="Reserve ahead" text="Tell us what you'd like and when you're coming. We'll label it and have it waiting for you in the farm fridge or freezer." />
+  <CallBand heading="Reserve ahead" text="Feel free to call or email with the amount and date you want to pick up, and it will be labeled in the farm fridge or freezer for you." />
 </Base>
 
 <style>

@@ -13,7 +13,7 @@ const forSale = await getAnimals({ species: 'cattle', saleStatus: ['available', 
   <PageIntro
     kicker="Livestock for sale"
     title="Cattle for sale"
-    lede="We offer calves for sale each year and sometimes have mature cattle available. Everything is sold halter- and lead-trained, weaned, and with health testing if old enough."
+    lede="Courser Meadows offers calves for sale each year and occasionally has mature cattle available. All cattle are sold halter and lead trained, weaned, and with health testing if old enough."
     photo={{ src: fern, alt: 'Fern, a small black cow, standing in a fenced pasture' }}
   />
 
@@ -23,7 +23,7 @@ const forSale = await getAnimals({ species: 'cattle', saleStatus: ['available', 
       <AnimalGrid animals={forSale} />
     ) : (
       <div class="panel empty">
-        <p><b>Nothing available right now.</b> New calves come along through the year. Join the wait list below and we'll get in touch when we have what you're looking for.</p>
+        <p><b>Nothing available right now.</b> We have breeding, dairy, pet, and beef livestock available throughout the year, so fill out the form below to be put on our waiting list.</p>
       </div>
     )}
   </section>
@@ -32,10 +32,10 @@ const forSale = await getAnimals({ species: 'cattle', saleStatus: ['available', 
     <div class="stack">
       <h2>Buying from us</h2>
       <ul>
-        <li>All cattle are sold halter- and lead-trained and weaned, with health testing if they're old enough. Our whole herd tests negative every year for TB, Brucellosis, Johne's, and BLV.</li>
-        <li>Bred animals are confirmed by BioPRYN or by vet palpation.</li>
-        <li>We don't ship with commercial carriers. Pick up at the farm, or we can usually deliver within New England for a fee.</li>
-        <li>Not sure if mini or small-breed cattle are right for you? Email us. We're happy to talk it through.</li>
+        <li>All cattle are sold halter and lead trained, weaned, and with health testing if old enough. Our entire herd tests negative for TB, Brucellosis, Johne's, and BLV annually.</li>
+        <li>Bred animals will be confirmed by either BioPRYN or palpation by vet.</li>
+        <li>We currently do not ship our cattle with commercial carriers. Any animals bought would need to be picked up by you on our farm, or we can usually transport ourselves within New England for a fee.</li>
+        <li>Email us if you have questions or are trying to decide if mini/small breed cattle are for you.</li>
       </ul>
     </div>
   </section>
