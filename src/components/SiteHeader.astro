@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/logo.png';
+
 const nav = [
   { href: '/meet-the-herd/', label: 'The Herd' },
   { href: '/cows-for-sale/', label: 'Cattle for Sale' },
@@ -13,7 +16,10 @@ const isCurrent = (href: string) => path === href || (href !== '/' && path.start
 
 <header class="site-header">
   <div class="wrap bar">
-    <a class="logo" href="/">Courser Meadows<span class="data">Warner, NH</span></a>
+    <a class="logo" href="/">
+      <Image src={logo} alt="Courser Meadows" widths={[120, 160, 240, 320, 480]} sizes="(max-width: 860px) 120px, 160px" loading="eager" fetchpriority="high" />
+      <span class="data">Warner, NH</span>
+    </a>
     <nav aria-label="Main">
       <details class="menu">
         <summary>Menu</summary>
@@ -51,8 +57,9 @@ const isCurrent = (href: string) => path === href || (href !== '/' && path.start
 
 <style>
   .site-header { border-bottom: 1px solid var(--rule); background: var(--paper); }
-  .bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.9rem; }
-  .logo { font-family: var(--font-display); font-size: 1.5rem; color: var(--green); text-decoration: none; display: flex; align-items: baseline; gap: 0.6rem; line-height: 1.1; }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.6rem; }
+  .logo { color: var(--green); text-decoration: none; display: flex; align-items: center; gap: 0.75rem; line-height: 1.1; flex-shrink: 0; }
+  .logo img { display: block; width: 160px; height: auto; }
   .logo .data { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
   nav ul { list-style: none; margin: 0; padding: 0; }
   nav a { font-family: var(--font-label); font-weight: 600; font-size: 0.98rem; color: var(--ink); text-decoration: none; }
@@ -61,6 +68,7 @@ const isCurrent = (href: string) => path === href || (href !== '/' && path.start
   .inline { display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; justify-content: flex-end; }
   .menu { display: none; }
   @media (max-width: 860px) {
+    .logo img { width: 120px; }
     .inline { display: none; }
     .menu { display: block; position: relative; }
     .menu summary {
